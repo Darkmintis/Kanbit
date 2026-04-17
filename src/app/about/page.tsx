@@ -49,7 +49,7 @@ export default function AboutPage() {
         {/* Data Source */}
         <div className="mt-12 rounded-lg border border-[#bfdbfe] bg-[#eff6ff] p-6">
           <div className="flex gap-3">
-            <Info className="h-6 w-6 flex-shrink-0 text-[#1e40af]" />
+            <Info className="h-6 w-6 shrink-0 text-[#1e40af]" />
             <div>
               <h3 className="font-semibold text-[#1e40af]">About Our Data</h3>
               <p className="mt-2 text-[#1e40af]">
@@ -74,7 +74,7 @@ export default function AboutPage() {
               "Instant insights and recommendations",
             ].map((feature) => (
               <li key={feature} className="flex items-center gap-3">
-                <CheckCircle className="h-5 w-5 flex-shrink-0 text-[#10b981]" />
+                <CheckCircle className="h-5 w-5 shrink-0 text-[#10b981]" />
                 <span className="text-[#475569]">{feature}</span>
               </li>
             ))}
@@ -82,7 +82,7 @@ export default function AboutPage() {
         </div>
 
         {/* Creator */}
-        <div className="mt-12 card p-8 bg-gradient-to-br from-[#0f766e]/5 to-[#f59e0b]/5">
+        <div className="mt-12 card p-8 bg-linear-to-br from-[#0f766e]/5 to-[#f59e0b]/5">
           <h2 className="text-2xl font-bold text-[#0f172a]">Who Built This?</h2>
           <p className="mt-4 text-[#475569]">
             AppRadar is built by <a href="https://darkmintis.dev" className="font-semibold text-[#0f766e] hover:underline">Darkmintis</a> a passionate developer and maker focusing on clean,

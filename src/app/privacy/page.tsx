@@ -65,14 +65,11 @@ export default function PrivacyPage() {
           </section>
 
           {/* Contact */}
-          <section className="card p-6 bg-gradient-to-br from-[#0f766e]/5 to-[#f59e0b]/5">
+          <section className="card accent-surface p-6">
             <h2 className="text-2xl font-bold text-[#0f172a]">Questions?</h2>
             <p className="mt-3 text-[#475569]">
               If you have privacy concerns or questions, reach out via{" "}
-              <a href="https://darkmintis.dev" className="font-semibold text-[#0f766e] hover:underline">
-                darkmintis.dev
-              </a>
-              .
+              <a href="https://darkmintis.dev" className="font-semibold text-[#0f766e] hover:underline">darkmintis.dev</a>.
             </p>
           </section>
         </div>

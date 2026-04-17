@@ -82,14 +82,11 @@ export default function TermsPage() {
           </section>
 
           {/* Contact */}
-          <section className="card p-6 bg-gradient-to-br from-[#0f766e]/5 to-[#f59e0b]/5">
+          <section className="card p-6 bg-linear-to-br from-[#0f766e]/5 to-[#f59e0b]/5">
             <h2 className="text-2xl font-bold text-[#0f172a]">Contact</h2>
             <p className="mt-3 text-[#475569]">
               For questions about these terms, contact us at{" "}
-              <a href="https://darkmintis.dev" className="font-semibold text-[#0f766e] hover:underline">
-                darkmintis.dev
-              </a>
-              .
+              <a href="https://darkmintis.dev" className="font-semibold text-[#0f766e] hover:underline">darkmintis.dev</a>.
             </p>
           </section>
         </div>

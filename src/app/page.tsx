@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import {
   BarChart3,
@@ -72,13 +73,11 @@ export default function Home() {
 
   useEffect(() => {
     if (!query || query.length < 2) {
-      setResults([]);
-      setIsSearching(false);
       return;
     }
 
-    setIsSearching(true);
     const timer = setTimeout(async () => {
+      setIsSearching(true);
       try {
         const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
         if (res.ok) {
@@ -101,8 +100,8 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-black text-white selection:bg-teal-500/30">
-      <div className="pointer-events-none absolute -top-40 left-1/2 -z-10 h-[600px] w-[800px] -translate-x-1/2 rounded-full bg-teal-500/20 opacity-40 blur-[100px] mix-blend-screen" />
+    <div className="page-shell min-h-screen relative overflow-hidden selection:bg-teal-500/30">
+      <div className="pointer-events-none absolute -top-40 left-1/2 -z-10 h-150 w-200 -translate-x-1/2 rounded-full bg-teal-500/20 opacity-40 blur-[100px] mix-blend-screen" />
 
       {/* Hero Section */}
       <section className="container-shell py-20 sm:py-32">
@@ -116,12 +115,12 @@ export default function Home() {
 
           <h1 className="text-5xl sm:text-7xl font-extrabold leading-[1.1] tracking-tight mb-8">
             Analyze any app at <br className="hidden sm:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-500">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-teal-400 to-cyan-500">
               lightning speed
             </span>
           </h1>
 
-          <p className="mt-6 text-xl leading-relaxed text-neutral-400 max-w-2xl mx-auto mb-10">
+          <p className="theme-muted mt-6 text-xl leading-relaxed max-w-2xl mx-auto mb-10">
             AppRadar gives you instant, crystal-clear analytics on any Google Play Store app. See downloads,
             trends, pricing and smart insights instantly.
           </p>
@@ -134,12 +133,17 @@ export default function Home() {
                   type="text"
                   value={query}
                   onChange={(e) => {
-                    setQuery(e.target.value);
+                    const nextQuery = e.target.value;
+                    setQuery(nextQuery);
+                    if (!nextQuery || nextQuery.length < 2) {
+                      setResults([]);
+                      setIsSearching(false);
+                    }
                     setShowResults(true);
                   }}
                   onFocus={() => setShowResults(true)}
                   placeholder="Search app by name or package..."
-                  className="w-full bg-transparent py-4 pl-12 pr-4 text-lg font-medium text-white placeholder:text-neutral-500 focus:outline-none"
+                  className="theme-input w-full bg-transparent py-4 pl-12 pr-4 text-lg font-medium focus:outline-none"
                 />
               </div>
               <button
@@ -154,7 +158,7 @@ export default function Home() {
             {showResults && isSearching && (
               <div className="absolute top-full left-0 right-0 mt-3 rounded-2xl glass-dropdown p-8 text-center fade-in flex flex-col items-center justify-center">
                 <Loader2 size={24} className="animate-spin text-teal-500 mb-2" />
-                <p className="text-sm font-medium text-neutral-400">Searching...</p>
+                <p className="theme-muted text-sm font-medium">Searching...</p>
               </div>
             )}
             
@@ -164,12 +168,19 @@ export default function Home() {
                   <button
                     key={app.appId}
                     onClick={() => handleSelect(app.appId)}
-                    className="flex text-left items-center gap-4 px-4 py-3 hover:bg-white/5 transition-colors border-b border-white/5 last:border-0"
+                    className="theme-list-row flex text-left items-center gap-4 px-4 py-3 transition-colors border-b last:border-0"
                   >
-                    <img src={app.icon} alt={app.title} className="w-12 h-12 rounded-xl flex-shrink-0" />
+                    <Image
+                      src={app.icon}
+                      alt={app.title}
+                      width={48}
+                      height={48}
+                      unoptimized
+                      className="w-12 h-12 rounded-xl shrink-0"
+                    />
                     <div className="flex-1 min-w-0">
-                      <div className="font-bold text-white truncate">{app.title}</div>
-                      <div className="text-sm text-neutral-400 truncate">{app.developer}</div>
+                      <div className="font-bold truncate">{app.title}</div>
+                      <div className="theme-muted text-sm truncate">{app.developer}</div>
                     </div>
                     <div className="text-sm font-semibold flex items-center gap-1 text-teal-400">
                       ★ {app.scoreText || "N/A"}
@@ -181,22 +192,27 @@ export default function Home() {
             
             {showResults && !isSearching && query.length >= 2 && results.length === 0 && (
               <div className="absolute top-full left-0 right-0 mt-3 rounded-2xl glass-dropdown p-6 text-center fade-in">
-                <p className="text-neutral-400">No app found.</p>
+                <p className="theme-muted">No app found.</p>
               </div>
             )}
           </div>
 
-          <p className="mt-6 px-2 text-sm font-medium text-neutral-500">
-            Try: <span className="text-teal-400 cursor-pointer" onClick={() => setQuery("Spotify")}>Spotify</span> • <span className="text-teal-400 cursor-pointer" onClick={() => setQuery("Instagram")}>Instagram</span> • <span className="text-teal-400 cursor-pointer" onClick={() => setQuery("TikTok")}>TikTok</span>
+          <p className="theme-muted mt-6 px-2 text-sm font-medium">
+            Try:{" "}
+            <button type="button" className="ml-2 text-teal-400" onClick={() => setQuery("Spotify")}>Spotify</button>
+            <span> • </span>
+            <button type="button" className="text-teal-400" onClick={() => setQuery("Instagram")}>Instagram</button>
+            <span> • </span>
+            <button type="button" className="text-teal-400" onClick={() => setQuery("TikTok")}>TikTok</button>
           </p>
         </div>
       </section>
 
       {/* Features Grid */}
-      <section className="container-shell py-24 border-t border-white/5">
+      <section className="theme-divider container-shell py-24 border-t">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Powerful Analytics</h2>
-          <p className="mt-4 text-lg text-neutral-400 max-w-2xl mx-auto">
+          <p className="theme-muted mt-4 text-lg max-w-2xl mx-auto">
             Comprehensive app intelligence designed for developers, marketers, and researchers.
           </p>
         </div>
@@ -205,14 +221,14 @@ export default function Home() {
           {features.map(({ icon: Icon, title, description, color, textColor }, idx) => (
             <div
               key={title}
-              className="card p-6 fade-in relative overflow-hidden group hover:bg-white/[0.02]"
+              className="card theme-surface-soft p-6 fade-in relative overflow-hidden group"
               style={{ animationDelay: `${idx * 100}ms` }}
             >
-              <div className={`inline-flex rounded-xl bg-gradient-to-br ${color} p-3 ${textColor} mb-4 border border-white/5`}>
+              <div className={`theme-divider inline-flex rounded-xl bg-linear-to-br ${color} p-3 ${textColor} mb-4 border`}>
                 <Icon size={24} strokeWidth={2} />
               </div>
               <h3 className="text-xl font-bold tracking-tight mb-2">{title}</h3>
-              <p className="text-neutral-400 leading-relaxed text-sm">{description}</p>
+              <p className="theme-muted leading-relaxed text-sm">{description}</p>
             </div>
           ))}
         </div>

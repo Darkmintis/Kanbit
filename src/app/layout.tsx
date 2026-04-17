@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${fontSans.variable} font-sans bg-black text-neutral-200 antialiased`}>
+      <body className={`${fontSans.variable} font-sans antialiased`}>
         <SiteHeader />
         <main className="page-fade">{children}</main>
         <SiteFooter />

@@ -3,10 +3,11 @@
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Download, TrendingUp, AlertCircle, BarChart3, Star, Tag, RotateCw } from "lucide-react";
+import Image from "next/image";
+import { Download, AlertCircle, BarChart3, Star, Tag, RotateCw } from "lucide-react";
 import { DashboardChart } from "@/components/dashboard-chart";
 import { StatCard } from "@/components/stat-card";
-import { LoadingSpinner, LoadingCard } from "@/components/loading";
+import { LoadingSpinner } from "@/components/loading";
 import { ErrorAlert } from "@/components/error-states";
 import type { DashboardData } from "@/lib/appstore-api";
 
@@ -45,13 +46,13 @@ function DashboardContent() {
 
   if (!appId) {
     return (
-      <div className="container-shell py-24 min-h-screen bg-black flex items-center justify-center">
+      <div className="page-shell container-shell py-24 min-h-screen flex items-center justify-center">
         <div className="card p-12 text-center max-w-lg mx-auto w-full">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-white/5 border border-white/10 mb-6">
+          <div className="theme-surface-soft mx-auto flex h-16 w-16 items-center justify-center rounded-full border mb-6">
             <AlertCircle className="h-8 w-8 text-neutral-400" />
           </div>
-          <h1 className="text-2xl font-extrabold tracking-tight text-white mb-2">No App Selected</h1>
-          <p className="text-neutral-400 mb-8">Search for an app on the home page to view its analytics.</p>
+          <h1 className="text-2xl font-extrabold tracking-tight mb-2">No App Selected</h1>
+          <p className="theme-muted mb-8">Search for an app on the home page to view its analytics.</p>
           <Link href="/" className="shiny-button inline-flex py-3 px-8 rounded-xl font-bold text-white">
             Go to Search
           </Link>
@@ -62,19 +63,24 @@ function DashboardContent() {
 
   if (loading) {
     return (
-      <div className="container-shell py-16 min-h-screen bg-black">
+      <div className="page-shell container-shell py-16 min-h-screen">
         <div className="mb-10">
-          <div className="mb-3 h-10 w-1/3 rounded-xl bg-white/5 loading-pulse" />
-          <div className="h-5 w-1/4 rounded-lg bg-white/5 loading-pulse" />
+          <div className="theme-surface-soft mb-3 h-10 w-1/3 rounded-xl loading-pulse" />
+          <div className="theme-surface-soft h-5 w-1/4 rounded-lg loading-pulse" />
         </div>
         <div className="grid gap-6 md:grid-cols-4">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="card p-6 h-32 bg-white/5 border-white/5 loading-pulse" />
+          {[
+            "metric-downloads",
+            "metric-rating",
+            "metric-price",
+            "metric-status",
+          ].map((skeletonId) => (
+            <div key={skeletonId} className="card theme-surface-soft p-6 h-32 loading-pulse" />
           ))}
         </div>
         <div className="mt-8 grid gap-8 lg:grid-cols-[2.5fr_1fr]">
-          <div className="card p-6 h-96 bg-white/5 border-white/5 loading-pulse" />
-          <div className="card p-6 h-96 bg-white/5 border-white/5 loading-pulse" />
+          <div className="card theme-surface-soft p-6 h-96 loading-pulse" />
+          <div className="card theme-surface-soft p-6 h-96 loading-pulse" />
         </div>
       </div>
     );
@@ -82,31 +88,49 @@ function DashboardContent() {
 
   if (error || !data) {
     return (
-      <div className="container-shell py-24 min-h-screen bg-black flex flex-col items-center justify-center">
+      <div className="page-shell container-shell py-24 min-h-screen flex flex-col items-center justify-center">
         <ErrorAlert title="Error" message={error || "Could not load info"} />
         <Link href="/" className="mt-6 shiny-button py-3 px-6 rounded-xl font-bold">Try Another Search</Link>
       </div>
     );
   }
 
+  const playScore = 100 - data.riskScore;
+  let riskTextClass = "text-red-400";
+  let riskBarClass = "from-red-400 to-red-500";
+  if (data.riskScore < 30) {
+    riskTextClass = "text-emerald-400";
+    riskBarClass = "from-emerald-400 to-emerald-500";
+  } else if (data.riskScore < 60) {
+    riskTextClass = "text-amber-400";
+    riskBarClass = "from-amber-400 to-amber-500";
+  }
+
   return (
-    <div className="container-shell py-16 min-h-screen bg-black text-white">
+    <div className="page-shell container-shell py-16 min-h-screen">
       {/* Header */}
       <div className="mb-10 fade-in flex flex-col sm:flex-row items-start gap-6">
-        <img src={data.icon} alt={data.appName} className="w-24 h-24 rounded-2xl shadow-xl border border-white/10" />
+        <Image
+          src={data.icon}
+          alt={data.appName}
+          width={96}
+          height={96}
+          unoptimized
+          className="theme-divider w-24 h-24 rounded-2xl shadow-xl border"
+        />
         <div className="flex-1">
           <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-teal-500/20 bg-teal-500/10 px-3 py-1 text-teal-400">
             <BarChart3 size={14} className="stroke-[2.5px]" />
             <span className="text-xs font-bold uppercase tracking-wider">Analytics</span>
           </div>
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">{data.appName}</h1>
-          <p className="mt-2 text-lg text-neutral-400">
+          <p className="theme-muted mt-2 text-lg">
             {data.developer} • {data.genre}
           </p>
-          <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm text-neutral-500">
-            <span className="flex items-center gap-1"><span className="text-neutral-400 font-medium">Version:</span> {data.version || "Varies with device"}</span>
-            <span className="flex items-center gap-1"><span className="text-neutral-400 font-medium">Released:</span> {data.released || "Unknown"}</span>
-            <span className="flex items-center gap-1"><span className="text-neutral-400 font-medium">Updated:</span> {data.updatedTimeAgo || "Recently"}</span>
+          <div className="theme-muted mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+            <span className="flex items-center gap-1"><span className="font-medium">Version:</span> {data.version || "Varies with device"}</span>
+            <span className="flex items-center gap-1"><span className="font-medium">Released:</span> {data.released || "Unknown"}</span>
+            <span className="flex items-center gap-1"><span className="font-medium">Updated:</span> {data.updatedTimeAgo || "Recently"}</span>
           </div>
         </div>
       </div>
@@ -138,18 +162,18 @@ function DashboardContent() {
 
       {/* Chart & Insights */}
       <div className="mt-8 grid gap-8 lg:grid-cols-[2.5fr_1fr] fade-in" style={{ animationDelay: '100ms' }}>
-        <div className="card p-6 border-white/10 bg-white/[0.02]">
+        <div className="card theme-surface-soft p-6">
            <DashboardChart points={data.points} />
         </div>
 
         {/* Insights Panel */}
-        <div className="card p-6 border-white/10 bg-white/[0.02] flex flex-col">
+        <div className="card theme-surface-soft p-6 flex flex-col">
           <h2 className="text-xl font-bold tracking-tight">Key Insights</h2>
           <div className="mt-6 flex-1 space-y-4">
             {data.insights.map((insight, idx) => (
               <div
-                key={idx}
-                className="rounded-xl border border-white/10 bg-white/5 p-4 text-sm font-medium leading-relaxed text-neutral-300"
+                key={`${insight}-${idx}`}
+                className="theme-surface-softer theme-divider rounded-xl border p-4 text-sm font-medium leading-relaxed"
               >
                 {insight}
               </div>
@@ -160,19 +184,17 @@ function DashboardContent() {
           <div className="mt-8 rounded-2xl glass-panel p-5">
             <div className="flex items-center justify-between">
               <span className="font-bold">Play Score</span>
-              <span className={`text-xl font-extrabold ${
-                  data.riskScore < 30 ? "text-emerald-400" : data.riskScore < 60 ? "text-amber-400" : "text-red-400"
-                }`}>
-                {100 - data.riskScore}
-                <span className="text-sm text-neutral-500">/100</span>
+              <span className={`text-xl font-extrabold ${riskTextClass}`}>
+                {playScore}
+                <span className="theme-muted text-sm">/100</span>
               </span>
             </div>
-            <div className="mt-4 h-2 rounded-full bg-white/10 overflow-hidden">
+            <div className="theme-surface-softer mt-4 h-2 rounded-full overflow-hidden">
               <div
-                className={`h-full transition-all duration-1000 ease-out bg-gradient-to-r ${
-                  data.riskScore < 30 ? "from-emerald-400 to-emerald-500" : data.riskScore < 60 ? "from-amber-400 to-amber-500" : "from-red-400 to-red-500"
+                className={`h-full transition-all duration-1000 ease-out bg-linear-to-r ${
+                  riskBarClass
                 }`}
-                style={{ width: `${100 - data.riskScore}%` }}
+                style={{ width: `${playScore}%` }}
               />
             </div>
           </div>
@@ -185,7 +207,7 @@ function DashboardContent() {
 export default function DashboardPage() {
   return (
     <Suspense fallback={
-      <div className="container-shell py-12 min-h-screen bg-black flex justify-center items-center">
+      <div className="page-shell container-shell py-12 min-h-screen flex justify-center items-center">
         <LoadingSpinner />
       </div>
     }>
