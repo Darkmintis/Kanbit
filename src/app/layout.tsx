@@ -13,6 +13,12 @@ export const metadata: Metadata = {
   title: "AppRadar | Modern Play Store Analytics",
   description:
     "Lightning fast and accurate Google Play Store app analytics right in your browser.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+  },
 };
 
 export default function RootLayout({
