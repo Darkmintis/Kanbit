@@ -25,6 +25,9 @@
   --glass-dropdown-bg: rgba(24, 24, 27, 0.95);
   --glass-dropdown-border: rgba(255, 255, 255, 0.1);
   --glass-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8);
+  --about-info-bg: rgba(15, 23, 42, 0.35);
+  --about-info-border: rgba(56, 189, 248, 0.25);
+  --about-info-text: #bae6fd;
 }
 
 [data-theme="light"] {
@@ -50,6 +53,9 @@
   --glass-dropdown-bg: rgba(255, 255, 255, 0.96);
   --glass-dropdown-border: rgba(15, 23, 42, 0.1);
   --glass-shadow: 0 20px 40px -12px rgba(15, 23, 42, 0.18);
+  --about-info-bg: #eff6ff;
+  --about-info-border: #bfdbfe;
+  --about-info-text: #1e40af;
 }
 
 * {
@@ -226,6 +232,20 @@ h1, h2, h3, h4, h5, h6 {
 
 .accent-surface {
   background: linear-gradient(135deg, rgb(15 118 110 / 5%), rgb(245 158 11 / 5%));
+}
+
+.about-info-panel {
+  background: var(--about-info-bg);
+  border-color: var(--about-info-border);
+}
+
+.about-info-icon,
+.about-info-text {
+  color: var(--about-info-text);
+}
+
+.about-accent-link {
+  color: var(--color-primary);
 }
 
 .card:hover {

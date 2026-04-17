@@ -52,6 +52,51 @@ type SearchResult = {
   scoreText: string;
 };
 
+const quickApps = [
+  {
+    name: "Blink",
+    packageName: "com.darkmintis.blink",
+  },
+  {
+    name: "Spotify",
+    packageName: "com.spotify.music",
+  },
+  {
+    name: "Instagram",
+    packageName: "com.instagram.android",
+  },
+];
+
+const DEFAULT_APP_LOGO = "/icons/app-default.svg";
+const QUICK_APP_ICON_CACHE = "appradar-quick-app-icons";
+const QUICK_APP_ICON_CACHE_MONTH = "appradar-quick-app-icons-month";
+
+type QuickAppIconMap = Record<string, string>;
+
+type AppLogoProps = {
+  src: string;
+  alt: string;
+  size?: number;
+  className?: string;
+};
+
+function AppLogo({ src, alt, size = 48, className = "" }: Readonly<AppLogoProps>) {
+  const [hasError, setHasError] = useState(false);
+  const logoSrc = hasError ? DEFAULT_APP_LOGO : src || DEFAULT_APP_LOGO;
+
+  return (
+    <Image
+      src={logoSrc}
+      alt={alt}
+      width={size}
+      height={size}
+      unoptimized
+      onError={() => setHasError(true)}
+      className={className}
+    />
+  );
+}
+
 export default function Home() {
   const router = useRouter();
   const [query, setQuery] = useState("");
@@ -59,6 +104,26 @@ export default function Home() {
   const [isSearching, setIsSearching] = useState(false);
   const [results, setResults] = useState<SearchResult[]>([]);
   const [showResults, setShowResults] = useState(false);
+  const [quickAppIcons, setQuickAppIcons] = useState<QuickAppIconMap>(() => {
+    if (globalThis.window === undefined) {
+      return {};
+    }
+
+    const currentMonth = new Date().toISOString().slice(0, 7);
+    const cachedMonth = globalThis.localStorage.getItem(QUICK_APP_ICON_CACHE_MONTH);
+    const cachedIcons = globalThis.localStorage.getItem(QUICK_APP_ICON_CACHE);
+
+    if (cachedMonth !== currentMonth || !cachedIcons) {
+      return {};
+    }
+
+    try {
+      return JSON.parse(cachedIcons) as QuickAppIconMap;
+    } catch {
+      globalThis.localStorage.removeItem(QUICK_APP_ICON_CACHE);
+      return {};
+    }
+  });
   const searchRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -93,6 +158,39 @@ export default function Home() {
 
     return () => clearTimeout(timer);
   }, [query]);
+
+  useEffect(() => {
+    const currentMonth = new Date().toISOString().slice(0, 7);
+    const cachedMonth = globalThis.localStorage.getItem(QUICK_APP_ICON_CACHE_MONTH);
+
+    if (cachedMonth === currentMonth) {
+      return;
+    }
+
+    const fetchIcons = async () => {
+      const entries = await Promise.all(
+        quickApps.map(async (app) => {
+          try {
+            const res = await fetch(`/api/apps?appId=${encodeURIComponent(app.packageName)}`);
+            if (!res.ok) {
+              return [app.packageName, DEFAULT_APP_LOGO] as const;
+            }
+            const data = await res.json();
+            return [app.packageName, data.icon || DEFAULT_APP_LOGO] as const;
+          } catch {
+            return [app.packageName, DEFAULT_APP_LOGO] as const;
+          }
+        }),
+      );
+
+      const nextIcons = Object.fromEntries(entries) as QuickAppIconMap;
+      setQuickAppIcons(nextIcons);
+      globalThis.localStorage.setItem(QUICK_APP_ICON_CACHE, JSON.stringify(nextIcons));
+      globalThis.localStorage.setItem(QUICK_APP_ICON_CACHE_MONTH, currentMonth);
+    };
+
+    void fetchIcons();
+  }, []);
 
   const handleSelect = (appId: string) => {
     setLoading(true);
@@ -170,14 +268,7 @@ export default function Home() {
                     onClick={() => handleSelect(app.appId)}
                     className="theme-list-row flex text-left items-center gap-4 px-4 py-3 transition-colors border-b last:border-0"
                   >
-                    <Image
-                      src={app.icon}
-                      alt={app.title}
-                      width={48}
-                      height={48}
-                      unoptimized
-                      className="w-12 h-12 rounded-xl shrink-0"
-                    />
+                    <AppLogo key={app.icon} src={app.icon} alt={app.title} className="w-12 h-12 rounded-xl shrink-0" />
                     <div className="flex-1 min-w-0">
                       <div className="font-bold truncate">{app.title}</div>
                       <div className="theme-muted text-sm truncate">{app.developer}</div>
@@ -197,14 +288,28 @@ export default function Home() {
             )}
           </div>
 
-          <p className="theme-muted mt-6 px-2 text-sm font-medium">
-            Try:{" "}
-            <button type="button" className="ml-2 text-teal-400" onClick={() => setQuery("Spotify")}>Spotify</button>
-            <span> • </span>
-            <button type="button" className="text-teal-400" onClick={() => setQuery("Instagram")}>Instagram</button>
-            <span> • </span>
-            <button type="button" className="text-teal-400" onClick={() => setQuery("TikTok")}>TikTok</button>
-          </p>
+          <div className="mt-8">
+            <p className="theme-muted mb-4 text-sm font-semibold uppercase tracking-wide">Try These Apps</p>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+              {quickApps.map((app) => (
+                <button
+                  key={app.packageName}
+                  type="button"
+                  onClick={() => handleSelect(app.packageName)}
+                  className="card theme-surface-soft flex flex-col items-center gap-2 rounded-2xl p-4 text-center transition hover:border-teal-500/40 hover:-translate-y-0.5"
+                >
+                  <AppLogo
+                    key={`${app.packageName}-${quickAppIcons[app.packageName] || "default"}`}
+                    src={quickAppIcons[app.packageName] || DEFAULT_APP_LOGO}
+                    alt={`${app.name} icon`}
+                    className="h-12 w-12 rounded-xl"
+                  />
+                  <span className="text-sm font-bold">{app.name}</span>
+                  <span className="theme-muted text-xs font-medium">{app.packageName}</span>
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 

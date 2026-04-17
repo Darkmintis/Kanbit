@@ -26,19 +26,13 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <h4 className="footer-title mb-6 font-extrabold tracking-tight">Legal & Links</h4>
+            <h4 className="footer-title mb-6 font-extrabold tracking-tight">Legal & Connect</h4>
             <ul className="space-y-4 text-sm font-medium">
               <li>
                 <Link href="/terms" className="footer-link transition-colors">Terms of Service</Link>
               </li>
               <li>
                 <Link href="/privacy" className="footer-link transition-colors">Privacy Policy</Link>
-              </li>
-              <li>
-                <a href="https://darkmintis.dev" className="footer-link transition-colors" target="_blank" rel="noopener noreferrer">Portfolio</a>
-              </li>
-              <li>
-                <a href="https://github.com/Darkmintis" className="footer-link transition-colors" target="_blank" rel="noopener noreferrer">GitHub</a>
               </li>
             </ul>
           </div>
@@ -48,6 +42,14 @@ export function SiteFooter() {
           <p className="theme-muted text-sm font-medium">
             &copy; {new Date().getFullYear()} AppRadar. All analytics are estimated from public signals.
           </p>
+          <a
+            href="https://darkmintis.dev"
+            className="footer-link mt-3 inline-flex items-center gap-2 text-sm font-semibold sm:mt-0"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Built by <span className="text-teal-500">Darkmintis</span>
+          </a>
         </div>
       </div>
     </footer>

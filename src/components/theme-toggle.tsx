@@ -17,7 +17,7 @@ function getInitialTheme(): Theme {
     return stored;
   }
 
-  return globalThis.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  return "dark";
 }
 
 function applyTheme(theme: Theme) {
