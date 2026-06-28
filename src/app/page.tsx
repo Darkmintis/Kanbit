@@ -104,26 +104,7 @@ export default function Home() {
   const [isSearching, setIsSearching] = useState(false);
   const [results, setResults] = useState<SearchResult[]>([]);
   const [showResults, setShowResults] = useState(false);
-  const [quickAppIcons, setQuickAppIcons] = useState<QuickAppIconMap>(() => {
-    if (globalThis.window === undefined) {
-      return {};
-    }
-
-    const currentMonth = new Date().toISOString().slice(0, 7);
-    const cachedMonth = globalThis.localStorage.getItem(QUICK_APP_ICON_CACHE_MONTH);
-    const cachedIcons = globalThis.localStorage.getItem(QUICK_APP_ICON_CACHE);
-
-    if (cachedMonth !== currentMonth || !cachedIcons) {
-      return {};
-    }
-
-    try {
-      return JSON.parse(cachedIcons) as QuickAppIconMap;
-    } catch {
-      globalThis.localStorage.removeItem(QUICK_APP_ICON_CACHE);
-      return {};
-    }
-  });
+  const [quickAppIcons, setQuickAppIcons] = useState<QuickAppIconMap>({});
   const searchRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -134,6 +115,19 @@ export default function Home() {
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    const currentMonth = new Date().toISOString().slice(0, 7);
+    const cachedMonth = localStorage.getItem(QUICK_APP_ICON_CACHE_MONTH);
+    const cachedIcons = localStorage.getItem(QUICK_APP_ICON_CACHE);
+    if (cachedMonth === currentMonth && cachedIcons) {
+      try {
+        setQuickAppIcons(JSON.parse(cachedIcons));
+      } catch {
+        localStorage.removeItem(QUICK_APP_ICON_CACHE);
+      }
+    }
   }, []);
 
   useEffect(() => {
