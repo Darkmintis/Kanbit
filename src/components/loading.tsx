@@ -10,14 +10,4 @@ export function LoadingSpinner() {
   );
 }
 
-export function LoadingCard() {
-  return (
-    <div className="card theme-surface-soft space-y-4 p-6">
-      <div className="theme-surface-softer h-6 w-1/3 rounded loading-pulse" />
-      <div className="space-y-2">
-        <div className="theme-surface-softer h-4 w-full rounded loading-pulse" />
-        <div className="theme-surface-softer h-4 w-2/3 rounded loading-pulse" />
-      </div>
-    </div>
-  );
-}
+
