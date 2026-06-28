@@ -74,7 +74,7 @@ export default function AboutPage() {
               "Instant insights and recommendations",
             ].map((feature) => (
               <li key={feature} className="flex items-center gap-3">
-                <CheckCircle className="h-5 w-5 shrink-0 text-[#10b981]" />
+                <CheckCircle className="h-5 w-5 shrink-0 text-emerald-500" />
                 <span className="theme-muted">{feature}</span>
               </li>
             ))}
