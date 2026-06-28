@@ -261,19 +261,19 @@ export default function Home() {
             )}
             
             {showResults && !isSearching && results.length > 0 && (
-              <div className="absolute top-full left-0 right-0 mt-3 rounded-2xl glass-dropdown overflow-hidden flex flex-col fade-in">
+              <div className="absolute top-full left-0 right-0 mt-3 rounded-2xl glass-dropdown overflow-hidden flex flex-col fade-in shadow-2xl">
                 {results.map((app) => (
                   <button
                     key={app.appId}
                     onClick={() => handleSelect(app.appId)}
-                    className="theme-list-row flex text-left items-center gap-4 px-4 py-3 transition-colors border-b last:border-0"
+                    className="theme-list-row flex text-left items-center gap-4 px-4 py-3.5 transition-all hover:bg-white/5 border-b last:border-0"
                   >
-                    <AppLogo key={app.icon} src={app.icon} alt={app.title} className="w-12 h-12 rounded-xl shrink-0" />
+                    <AppLogo key={app.icon} src={app.icon} alt={app.title} className="w-12 h-12 rounded-xl shrink-0 ring-1 ring-white/10" />
                     <div className="flex-1 min-w-0">
                       <div className="font-bold truncate">{app.title}</div>
                       <div className="theme-muted text-sm truncate">{app.developer}</div>
                     </div>
-                    <div className="text-sm font-semibold flex items-center gap-1 text-teal-400">
+                    <div className="text-sm font-semibold flex items-center gap-1 text-amber-400">
                       ★ {app.scoreText || "N/A"}
                     </div>
                   </button>
@@ -283,7 +283,7 @@ export default function Home() {
             
             {showResults && !isSearching && query.length >= 2 && results.length === 0 && (
               <div className="absolute top-full left-0 right-0 mt-3 rounded-2xl glass-dropdown p-6 text-center fade-in">
-                <p className="theme-muted">No app found.</p>
+                <p className="theme-muted font-medium">No results found for &quot;{query}&quot;</p>
               </div>
             )}
           </div>
@@ -296,7 +296,7 @@ export default function Home() {
                   key={app.packageName}
                   type="button"
                   onClick={() => handleSelect(app.packageName)}
-                  className="card theme-surface-soft flex flex-col items-center gap-2 rounded-2xl p-4 text-center transition hover:border-teal-500/40 hover:-translate-y-0.5"
+                  className="card theme-surface-soft flex flex-col items-center gap-2 rounded-2xl p-4 text-center transition hover:border-teal-500/40 hover:-translate-y-0.5 cursor-pointer"
                 >
                   <AppLogo
                     key={`${app.packageName}-${quickAppIcons[app.packageName] || "default"}`}
