@@ -9,7 +9,7 @@ export function SiteFooter() {
             <h3 className="footer-title text-base font-bold tracking-tight">AppRadar</h3>
             <p className="theme-muted mt-4 max-w-sm text-sm font-medium leading-relaxed">
               Gamified Google Play scouting from public store signals. Lock an app, unlock tiers,
-              power stats, and badges — no account, no AI.
+              power stats, and badges - no account, no AI.
             </p>
           </div>
 

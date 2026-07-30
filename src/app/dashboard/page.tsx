@@ -199,7 +199,7 @@ function DashboardContent() {
           </p>
           <h2 className="mt-1 text-2xl font-bold tracking-tight">Mission Briefing</h2>
           <p className="theme-muted mt-1 text-sm">
-            Rule-based readouts from scraped public listing data — no AI.
+            Rule-based readouts from scraped public listing data - no AI.
           </p>
           <ul className="mt-6 grid gap-3 sm:grid-cols-2">
             {game.scoutingNotes.map((note, idx) => (

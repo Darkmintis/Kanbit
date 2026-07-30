@@ -164,7 +164,7 @@ export function AchievementGrid({ achievements }: Readonly<AchievementGridProps>
           </p>
           <h2 className="mt-1 text-2xl font-bold tracking-tight">Achievements</h2>
           <p className="theme-muted mt-1 text-sm">
-            Tap a badge to inspect it. Colors mark rarity — unlocks come from public Play signals.
+            Tap a badge to inspect it. Colors mark rarity - unlocks come from public Play signals.
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
@@ -281,8 +281,8 @@ export function AchievementGrid({ achievements }: Readonly<AchievementGridProps>
           </div>
           <p className="theme-muted mt-2 text-sm leading-relaxed">
             {selected.unlocked
-              ? `Unlocked — this badge is in the vault and worth +${selected.xpReward} XP toward the scout profile.`
-              : `Still locked — hit the requirement on the Play listing to claim +${selected.xpReward} XP.`}
+              ? `Unlocked - this badge is in the vault and worth +${selected.xpReward} XP toward the scout profile.`
+              : `Still locked - hit the requirement on the Play listing to claim +${selected.xpReward} XP.`}
           </p>
         </div>
       )}

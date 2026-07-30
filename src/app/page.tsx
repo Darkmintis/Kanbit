@@ -23,7 +23,7 @@ const features = [
   {
     icon: Shield,
     title: "Power Board",
-    description: "Reach, Reputation, Voice, Freshness, Stickiness — XP bars you can read in a glance.",
+    description: "Reach, Reputation, Voice, Freshness, Stickiness - XP bars you can read in a glance.",
   },
   {
     icon: Gamepad2,
@@ -197,7 +197,7 @@ export default function Home() {
           </h1>
 
           <p className="theme-muted mx-auto mt-5 max-w-xl text-lg leading-relaxed sm:text-xl">
-            Lock any Google Play app. We scrape public signals and turn them into a game profile —
+            Lock any Google Play app. We scrape public signals and turn them into a game profile -
             tiers, XP, badges, and a scout briefing.
           </p>
 
@@ -316,7 +316,7 @@ export default function Home() {
             Stats that feel like a run
           </h2>
           <p className="theme-muted mt-3 text-base sm:text-lg">
-            Same public Play data — presented like a character sheet so people actually want to
+            Same public Play data - presented like a character sheet so people actually want to
             explore.
           </p>
         </div>

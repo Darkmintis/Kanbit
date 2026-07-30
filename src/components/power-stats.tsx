@@ -31,7 +31,7 @@ export function PowerStats({ stats }: Readonly<PowerStatsProps>) {
         </p>
         <h2 className="mt-1 text-2xl font-bold tracking-tight">Combat Stats</h2>
         <p className="theme-muted mt-1 text-sm">
-          Five public signals turned into XP bars — not private Console data.
+          Five public signals turned into XP bars - not private Console data.
         </p>
       </div>
 

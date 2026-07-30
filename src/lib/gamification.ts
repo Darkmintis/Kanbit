@@ -145,13 +145,13 @@ function powerStats(input: ScoreInput): PowerStat[] {
       id: "reputation",
       label: "Reputation",
       value: reputation,
-      blurb: "Star rating strength — the crowd’s verdict.",
+      blurb: "Star rating strength - the crowd’s verdict.",
     },
     {
       id: "voice",
       label: "Voice",
       value: voice,
-      blurb: "Written review volume — how loud users talk.",
+      blurb: "Written review volume - how loud users talk.",
     },
     {
       id: "freshness",
@@ -236,7 +236,7 @@ function achievements(input: ScoreInput, playScore: number): Achievement[] {
     {
       id: "free_wave",
       name: "Open Gate",
-      description: "Free to download — maximum reach stance.",
+      description: "Free to download - maximum reach stance.",
       unlocked: input.free,
       rarity: "common",
       xpReward: 40,
@@ -289,38 +289,38 @@ function scoutingNotes(input: ScoreInput, profile: Omit<GameProfile, "scoutingNo
   const tier = TIER_META[profile.tier];
 
   notes.push(
-    `Scouted as ${tier.label} Lv.${profile.level} — ${profile.title}.`,
+    `Scouted as ${tier.label} Lv.${profile.level} - ${profile.title}.`,
   );
 
   if ((input.score || 0) >= 4.5) {
     notes.push("Reputation is elite: users are handing out top marks.");
   } else if ((input.score || 0) >= 4.0) {
-    notes.push("Solid reputation board — room to push into five-star territory.");
+    notes.push("Solid reputation board - room to push into five-star territory.");
   } else if ((input.score || 0) >= 3.5) {
     notes.push("Mid-pack reputation. Quality or UX wins would move the needle.");
   } else {
-    notes.push("Reputation is under pressure — ratings are dragging the power curve.");
+    notes.push("Reputation is under pressure - ratings are dragging the power curve.");
   }
 
   if ((input.maxInstalls || 0) >= 10_000_000) {
     notes.push("Reach is massive. This listing already plays in the big leagues.");
   } else if ((input.maxInstalls || 0) >= 1_000_000) {
-    notes.push("Strong install base — past the hardest growth wall for most apps.");
+    notes.push("Strong install base - past the hardest growth wall for most apps.");
   } else if ((input.maxInstalls || 0) >= 100_000) {
     notes.push("Healthy traction. Next boss fight: the million-install gate.");
   } else {
-    notes.push("Still early on the reach ladder — discovery and retention are the quest.");
+    notes.push("Still early on the reach ladder - discovery and retention are the quest.");
   }
 
   const daysSinceUpdate = input.updated
     ? Math.floor((Date.now() - input.updated) / (1000 * 60 * 60 * 24))
     : 999;
   if (daysSinceUpdate <= 30) {
-    notes.push("Freshness buff is active — recent patches keep the listing warm.");
+    notes.push("Freshness buff is active - recent patches keep the listing warm.");
   } else if (daysSinceUpdate <= 90) {
     notes.push("Updates are cooling off. A patch drop would restore Freshness XP.");
   } else {
-    notes.push("Stale forge detected — long gap since the last public update.");
+    notes.push("Stale forge detected - long gap since the last public update.");
   }
 
   const unlocked = profile.achievements.filter((a) => a.unlocked).length;

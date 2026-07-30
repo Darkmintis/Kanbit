@@ -18,7 +18,7 @@ const fontDisplay = Chakra_Petch({
 export const metadata: Metadata = {
   title: "AppRadar | Gamified Play Store Scout",
   description:
-    "Search any Google Play app and unlock a game-style profile — tiers, power stats, and badges from public store signals. No sign-up. No AI.",
+    "Search any Google Play app and unlock a game-style profile - tiers, power stats, and badges from public store signals. No sign-up. No AI.",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },

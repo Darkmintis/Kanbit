@@ -13,7 +13,7 @@ export default function AboutPage() {
         <h1 className="font-display text-4xl font-bold">About AppRadar</h1>
         <p className="theme-muted mt-4 text-lg">
           AppRadar is a free Play Store scout: we scrape public listing data and present it like a
-          game profile so apps feel memorable — not like another dull spreadsheet.
+          game profile so apps feel memorable - not like another dull spreadsheet.
         </p>
 
         <div className="hud-panel mt-12 p-8">
@@ -53,7 +53,7 @@ export default function AboutPage() {
               <p className="about-info-text mt-2 text-sm leading-relaxed">
                 AppRadar uses <strong>public Play Store signals only</strong>. We do not access
                 private Google Play Console data. Install totals and daily pace are estimates.
-                Treat everything as directional — not official analytics.
+                Treat everything as directional - not official analytics.
               </p>
             </div>
           </div>
@@ -67,8 +67,8 @@ export default function AboutPage() {
               "Power board: Reach, Reputation, Voice, Freshness, Stickiness",
               "Achievement badges unlocked from listing signals",
               "Star breakdown and Play Score",
-              "Scout briefing written from rules — not AI",
-              "No sign-up, no AI cost — hosting only",
+              "Scout briefing written from rules - not AI",
+              "No sign-up, no AI cost - hosting only",
             ].map((feature) => (
               <li key={feature} className="flex items-center gap-3">
                 <CheckCircle className="h-5 w-5 shrink-0 text-[var(--color-primary)]" />
@@ -88,7 +88,7 @@ export default function AboutPage() {
             >
               Darkmintis
             </a>
-            — tools that feel good to use.
+            - tools that feel good to use.
           </p>
         </div>
       </div>

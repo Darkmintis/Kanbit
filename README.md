@@ -8,10 +8,10 @@ No accounts. No AI. Hosting is the only cost.
 
 - **Search** any Play Store app by name or package ID
 - **Tier & Level** from installs + ratings (Rookie → Mythic)
-- **Power Board** — Reach, Reputation, Voice, Freshness, Stickiness
-- **Badge Vault** — achievements unlocked from listing signals
+- **Power Board** - Reach, Reputation, Voice, Freshness, Stickiness
+- **Badge Vault** - achievements unlocked from listing signals
 - **Star Breakdown** + composite **Play Score**
-- **Scout Log** — rule-based briefing (not AI)
+- **Scout Log** - rule-based briefing (not AI)
 - Dark / light theme, responsive layout
 
 ## Data Source
