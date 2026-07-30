@@ -36,9 +36,9 @@ export default function TermsPage() {
               AppRadar provides <strong>estimated analytics only</strong>.
             </p>
             <p className="theme-muted mt-3">
-              All metrics, download numbers, ratings, and insights are estimates derived from public Play Store signals and
-              are <strong>not official Google Play data</strong>. These estimates may contain inaccuracies and should not be
-              relied upon for critical business decisions.
+              All metrics, download numbers, ratings, scores, and scout notes are estimates or heuristics derived from public
+              Play Store signals and are <strong>not official Google Play data</strong>. These estimates may contain
+              inaccuracies and should not be relied upon for critical business decisions.
             </p>
           </section>
 

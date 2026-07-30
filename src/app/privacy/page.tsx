@@ -18,9 +18,9 @@ export default function PrivacyPage() {
               When you use AppRadar, we collect minimal information:
             </p>
             <ul className="theme-muted mt-4 space-y-2 ml-6 list-disc">
-              <li>App names or package names you search for</li>
-              <li>General usage analytics (page views, timestamps)</li>
-              <li>Anonymized browser information</li>
+              <li>App names or package IDs you search for (sent to our API to scrape Play Store)</li>
+              <li>Standard server/hosting logs from your requests (IP, user agent) as provided by the host</li>
+              <li>Theme preference and quick-app icon cache stored only in your browser (localStorage)</li>
             </ul>
           </section>
 
@@ -28,9 +28,9 @@ export default function PrivacyPage() {
           <section className="card p-6">
             <h2 className="text-2xl font-bold">How We Use Your Data</h2>
             <ul className="theme-muted mt-4 space-y-2 ml-6 list-disc">
-              <li>To provide and improve AppRadar</li>
-              <li>To understand how users interact with the tool</li>
-              <li>To fix bugs and add new features</li>
+              <li>To fetch and display public Play Store profiles you request</li>
+              <li>To operate and secure the hosted service</li>
+              <li>To remember your theme preference on your device</li>
             </ul>
             <p className="theme-muted mt-4">
               We do <strong>not</strong> sell, share, or use your data for marketing or advertising purposes.

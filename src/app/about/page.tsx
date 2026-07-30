@@ -1,92 +1,94 @@
 import { CheckCircle, Info } from "lucide-react";
 
 export const metadata = {
-  title: "About AppRadar | Play Store Analytics",
-  description: "Learn aboutAppRadar and how we analyze Google Play Store data.",
+  title: "About AppRadar | Gamified Play Store Scout",
+  description:
+    "How AppRadar scrapes public Google Play signals and turns them into game-style app profiles.",
 };
 
 export default function AboutPage() {
   return (
     <div className="container-shell py-16">
-      <div className="max-w-3xl mx-auto">
-        <h1 className="text-4xl font-bold">About AppRadar</h1>
+      <div className="mx-auto max-w-3xl">
+        <h1 className="font-display text-4xl font-bold">About AppRadar</h1>
         <p className="theme-muted mt-4 text-lg">
-          AppRadar is a modern analytics tool that helps app makers, marketers, and developers understand app performance on
-          the Google Play Store.
+          AppRadar is a free Play Store scout: we scrape public listing data and present it like a
+          game profile so apps feel memorable — not like another dull spreadsheet.
         </p>
 
-        {/* Mission */}
-        <div className="mt-12 card p-8">
-          <h2 className="text-2xl font-bold">Our Mission</h2>
-          <p className="theme-muted mt-4">
-            We believe app analytics should be simple, fast, and accessible to everyone. AppRadar removes the complexity and
-            delivers crystal-clear insights in seconds.
+        <div className="hud-panel mt-12 p-8">
+          <h2 className="text-2xl font-bold">Mission</h2>
+          <p className="theme-muted mt-4 leading-relaxed">
+            Make public app intelligence fun and useful. No accounts. No AI bills. Just hosting plus
+            a scraper that turns installs, ratings, and listing signals into tiers, XP, and badges.
           </p>
         </div>
 
-        {/* How It Works */}
         <div className="mt-12">
           <h2 className="text-2xl font-bold">How It Works</h2>
-          <div className="mt-8 grid gap-6 md:grid-cols-3">
+          <div className="mt-8 grid gap-5 md:grid-cols-3">
             {[
-              { title: "Search", desc: "Enter any app name or package from the Google Play Store" },
-              { title: "Analyze", desc: "We pull public data and generate instant analytics" },
-              { title: "Understand", desc: "Get charts, trends, ratings, and smart insights" },
+              { title: "Lock", desc: "Search any Play Store app name or package ID" },
+              { title: "Scrape", desc: "We pull public listing signals from Google Play" },
+              { title: "Level Up", desc: "Stats become tiers, power bars, badges, and a scout log" },
             ].map((step, i) => (
-              <div key={step.title} className="card p-6">
+              <div key={step.title} className="hud-panel p-6">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg gradient-primary text-white font-bold">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg gradient-primary font-display font-bold text-[#0a0f08]">
                     {i + 1}
                   </div>
-                  <h3 className="font-semibold">{step.title}</h3>
+                  <h3 className="font-display font-bold">{step.title}</h3>
                 </div>
-                <p className="theme-muted mt-3">{step.desc}</p>
+                <p className="theme-muted mt-3 text-sm leading-relaxed">{step.desc}</p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Data Source */}
-        <div className="about-info-panel mt-12 rounded-lg border p-6">
+        <div className="about-info-panel mt-12 rounded-xl border p-6">
           <div className="flex gap-3">
             <Info className="about-info-icon h-6 w-6 shrink-0" />
             <div>
-              <h3 className="about-info-text font-semibold">About Our Data</h3>
-              <p className="about-info-text mt-2">
-                AppRadar uses <strong>public Play Store signals only</strong>. We do not access private Google Play Console
-                data. All metrics are estimates based on publicly available information and should be treated as directional
-                insights, not official figures.
+              <h3 className="about-info-text font-semibold">About the data</h3>
+              <p className="about-info-text mt-2 text-sm leading-relaxed">
+                AppRadar uses <strong>public Play Store signals only</strong>. We do not access
+                private Google Play Console data. Install totals and daily pace are estimates.
+                Treat everything as directional — not official analytics.
               </p>
             </div>
           </div>
         </div>
 
-        {/* Features */}
         <div className="mt-12">
-          <h2 className="text-2xl font-bold">Features</h2>
+          <h2 className="text-2xl font-bold">What you get</h2>
           <ul className="mt-8 space-y-4">
             {[
-              "Download & install estimates",
-              "Growth trends over time",
-              "App ratings and review counts",
-              "Comparative analytics",
-              "Health score and risk assessment",
-              "Instant insights and recommendations",
+              "Rarity tier + level from installs and ratings",
+              "Power board: Reach, Reputation, Voice, Freshness, Stickiness",
+              "Achievement badges unlocked from listing signals",
+              "Star breakdown and Play Score",
+              "Scout briefing written from rules — not AI",
+              "No sign-up, no AI cost — hosting only",
             ].map((feature) => (
               <li key={feature} className="flex items-center gap-3">
-                <CheckCircle className="h-5 w-5 shrink-0 text-emerald-500" />
+                <CheckCircle className="h-5 w-5 shrink-0 text-[var(--color-primary)]" />
                 <span className="theme-muted">{feature}</span>
               </li>
             ))}
           </ul>
         </div>
 
-        {/* Creator */}
-        <div className="accent-surface mt-12 card p-8">
-          <h2 className="text-2xl font-bold">Who Built This?</h2>
-          <p className="theme-muted mt-4">
-            AppRadar is built by <a href="https://darkmintis.dev" className="about-accent-link font-semibold hover:underline">Darkmintis</a>, a passionate developer and maker focused on clean,
-            useful tools for the app ecosystem.
+        <div className="accent-surface hud-panel mt-12 p-8">
+          <h2 className="text-2xl font-bold">Who built this?</h2>
+          <p className="theme-muted mt-4 leading-relaxed">
+            AppRadar is built by{" "}
+            <a
+              href="https://darkmintis.dev"
+              className="about-accent-link font-semibold hover:underline"
+            >
+              Darkmintis
+            </a>
+            — tools that feel good to use.
           </p>
         </div>
       </div>
