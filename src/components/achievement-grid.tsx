@@ -121,31 +121,27 @@ const FALLBACK_VISUAL: BadgeVisual = {
 
 const RARITY_META: Record<
   Achievement["rarity"],
-  { label: string; color: string; ring: string; chip: string }
+  { label: string; color: string; ring: string }
 > = {
   common: {
     label: "Common",
     color: "#94a3b8",
     ring: "rgba(148, 163, 184, 0.55)",
-    chip: "background: rgba(148,163,184,0.18); color: #cbd5e1; border-color: rgba(148,163,184,0.45);",
   },
   rare: {
     label: "Rare",
     color: "#38bdf8",
     ring: "rgba(56, 189, 248, 0.65)",
-    chip: "background: rgba(56,189,248,0.16); color: #7dd3fc; border-color: rgba(56,189,248,0.5);",
   },
   epic: {
     label: "Epic",
     color: "#c084fc",
     ring: "rgba(192, 132, 252, 0.7)",
-    chip: "background: rgba(192,132,252,0.16); color: #d8b4fe; border-color: rgba(192,132,252,0.5);",
   },
   legendary: {
     label: "Legendary",
     color: "#fbbf24",
     ring: "rgba(251, 191, 36, 0.75)",
-    chip: "background: rgba(251,191,36,0.16); color: #fde68a; border-color: rgba(251,191,36,0.55);",
   },
 };
 
