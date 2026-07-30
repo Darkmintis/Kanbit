@@ -2,6 +2,17 @@
   "name": "kanbit",
   "version": "0.1.0",
   "private": true,
+  "description": "Kanbit - gamified Google Play Store scout from public listing signals",
+  "license": "MIT",
+  "author": "Dipesh Mahat (Darkmintis)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Darkmintis/AppRadar.git"
+  },
+  "homepage": "https://appradar-stats.vercel.app",
+  "bugs": {
+    "url": "https://github.com/Darkmintis/AppRadar/issues"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
