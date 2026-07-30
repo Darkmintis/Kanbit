@@ -19,6 +19,7 @@ export type Achievement = {
   description: string;
   unlocked: boolean;
   rarity: "common" | "rare" | "epic" | "legendary";
+  xpReward: number;
 };
 
 export type GameProfile = {
@@ -182,6 +183,7 @@ function achievements(input: ScoreInput, playScore: number): Achievement[] {
       description: "Marked as Editor’s Choice on Google Play.",
       unlocked: input.editorsChoice,
       rarity: "legendary",
+      xpReward: 500,
     },
     {
       id: "five_star_aura",
@@ -189,6 +191,7 @@ function achievements(input: ScoreInput, playScore: number): Achievement[] {
       description: "Average rating of 4.5 or higher.",
       unlocked: (input.score || 0) >= 4.5,
       rarity: "epic",
+      xpReward: 250,
     },
     {
       id: "crowd_favorite",
@@ -196,6 +199,7 @@ function achievements(input: ScoreInput, playScore: number): Achievement[] {
       description: "Over 100K ratings collected.",
       unlocked: (input.ratings || 0) >= 100_000,
       rarity: "rare",
+      xpReward: 150,
     },
     {
       id: "viral_scale",
@@ -203,6 +207,7 @@ function achievements(input: ScoreInput, playScore: number): Achievement[] {
       description: "Crossed 10M+ estimated installs.",
       unlocked: (input.maxInstalls || 0) >= 10_000_000,
       rarity: "legendary",
+      xpReward: 500,
     },
     {
       id: "million_club",
@@ -210,6 +215,7 @@ function achievements(input: ScoreInput, playScore: number): Achievement[] {
       description: "Hit 1M+ estimated installs.",
       unlocked: (input.maxInstalls || 0) >= 1_000_000,
       rarity: "epic",
+      xpReward: 250,
     },
     {
       id: "active_forge",
@@ -217,6 +223,7 @@ function achievements(input: ScoreInput, playScore: number): Achievement[] {
       description: "Updated within the last 30 days.",
       unlocked: daysSinceUpdate <= 30,
       rarity: "rare",
+      xpReward: 120,
     },
     {
       id: "changelog",
@@ -224,6 +231,7 @@ function achievements(input: ScoreInput, playScore: number): Achievement[] {
       description: "Public changelog available on the listing.",
       unlocked: Boolean(input.recentChanges?.trim()),
       rarity: "common",
+      xpReward: 50,
     },
     {
       id: "free_wave",
@@ -231,6 +239,7 @@ function achievements(input: ScoreInput, playScore: number): Achievement[] {
       description: "Free to download — maximum reach stance.",
       unlocked: input.free,
       rarity: "common",
+      xpReward: 40,
     },
     {
       id: "premium_gate",
@@ -238,6 +247,7 @@ function achievements(input: ScoreInput, playScore: number): Achievement[] {
       description: "Paid download model on Play Store.",
       unlocked: !input.free,
       rarity: "rare",
+      xpReward: 100,
     },
     {
       id: "coin_shop",
@@ -245,6 +255,7 @@ function achievements(input: ScoreInput, playScore: number): Achievement[] {
       description: "Offers in-app purchases.",
       unlocked: input.offersIAP,
       rarity: "common",
+      xpReward: 45,
     },
     {
       id: "ad_arena",
@@ -252,6 +263,7 @@ function achievements(input: ScoreInput, playScore: number): Achievement[] {
       description: "Listing shows ad support.",
       unlocked: input.adSupported,
       rarity: "common",
+      xpReward: 40,
     },
     {
       id: "veteran",
@@ -259,6 +271,7 @@ function achievements(input: ScoreInput, playScore: number): Achievement[] {
       description: "On the store for 3+ years.",
       unlocked: daysSinceRelease >= 365 * 3,
       rarity: "epic",
+      xpReward: 220,
     },
     {
       id: "score_ace",
@@ -266,6 +279,7 @@ function achievements(input: ScoreInput, playScore: number): Achievement[] {
       description: "Play Score of 80 or higher.",
       unlocked: playScore >= 80,
       rarity: "epic",
+      xpReward: 280,
     },
   ];
 }
