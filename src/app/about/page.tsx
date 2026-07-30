@@ -1,18 +1,18 @@
 import { CheckCircle, Info } from "lucide-react";
 
 export const metadata = {
-  title: "About AppRadar | Gamified Play Store Scout",
+  title: "About Kanbit | Gamified Play Store Scout",
   description:
-    "How AppRadar scrapes public Google Play signals and turns them into game-style app profiles.",
+    "How Kanbit scrapes public Google Play signals and turns them into game-style app profiles.",
 };
 
 export default function AboutPage() {
   return (
     <div className="container-shell py-16">
       <div className="mx-auto max-w-3xl">
-        <h1 className="font-display text-4xl font-bold">About AppRadar</h1>
+        <h1 className="font-display text-4xl font-bold">About Kanbit</h1>
         <p className="theme-muted mt-4 text-lg">
-          AppRadar is a free Play Store scout: we scrape public listing data and present it like a
+          Kanbit is a free Play Store scout: we scrape public listing data and present it like a
           game profile so apps feel memorable - not like another dull spreadsheet.
         </p>
 
@@ -51,7 +51,7 @@ export default function AboutPage() {
             <div>
               <h3 className="about-info-text font-semibold">About the data</h3>
               <p className="about-info-text mt-2 text-sm leading-relaxed">
-                AppRadar uses <strong>public Play Store signals only</strong>. We do not access
+                Kanbit uses <strong>public Play Store signals only</strong>. We do not access
                 private Google Play Console data. Install totals and daily pace are estimates.
                 Treat everything as directional - not official analytics.
               </p>
@@ -81,7 +81,7 @@ export default function AboutPage() {
         <div className="accent-surface hud-panel mt-12 p-8">
           <h2 className="text-2xl font-bold">Who built this?</h2>
           <p className="theme-muted mt-4 leading-relaxed">
-            AppRadar is built by{" "}
+            Kanbit is built by{" "}
             <a
               href="https://darkmintis.dev"
               className="about-accent-link font-semibold hover:underline"

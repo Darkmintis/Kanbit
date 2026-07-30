@@ -5,7 +5,7 @@ import { Moon, Sun } from "lucide-react";
 
 type Theme = "dark" | "light";
 
-const STORAGE_KEY = "appradar-theme";
+const STORAGE_KEY = "kanbit-theme";
 
 function getInitialTheme(): Theme {
   if (globalThis.window === undefined) {

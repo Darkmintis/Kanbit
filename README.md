@@ -1,6 +1,6 @@
-# AppRadar – Gamified Play Store Scout
+# Kanbit – Gamified Play Store Scout
 
-AppRadar scrapes **public Google Play Store signals** and turns them into a game-style app profile: rarity tiers, levels, power XP bars, achievements, and a scout briefing.
+Kanbit scrapes **public Google Play Store signals** and turns them into a game-style app profile: rarity tiers, levels, power XP bars, achievements, and a scout briefing.
 
 No accounts. No AI. Hosting is the only cost.
 

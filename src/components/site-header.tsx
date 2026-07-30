@@ -11,7 +11,7 @@ export function SiteHeader() {
             <Radar size={18} />
           </div>
           <div>
-            <h1 className="site-header-title text-base font-bold tracking-tight">AppRadar</h1>
+            <h1 className="site-header-title text-base font-bold tracking-tight">Kanbit</h1>
           </div>
         </Link>
 

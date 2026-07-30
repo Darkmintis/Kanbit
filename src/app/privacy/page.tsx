@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "Privacy Policy | AppRadar",
-  description: "AppRadar privacy policy and data handling practices.",
+  title: "Privacy Policy | Kanbit",
+  description: "Kanbit privacy policy and data handling practices.",
 };
 
 export default function PrivacyPage() {
@@ -15,7 +15,7 @@ export default function PrivacyPage() {
           <section className="card p-6">
             <h2 className="text-2xl font-bold">Data We Collect</h2>
             <p className="theme-muted mt-3">
-              When you use AppRadar, we collect minimal information:
+              When you use Kanbit, we collect minimal information:
             </p>
             <ul className="theme-muted mt-4 space-y-2 ml-6 list-disc">
               <li>App names or package IDs you search for (sent to our API to scrape Play Store)</li>
@@ -41,7 +41,7 @@ export default function PrivacyPage() {
           <section className="card p-6">
             <h2 className="text-2xl font-bold">Data Storage & Security</h2>
             <p className="theme-muted mt-3">
-              AppRadar does not require user accounts, login, or registration. Search queries are processed instantly and
+              Kanbit does not require user accounts, login, or registration. Search queries are processed instantly and
               cached minimally. We use industry-standard security practices to protect any data we collect.
             </p>
           </section>
@@ -59,7 +59,7 @@ export default function PrivacyPage() {
           <section className="card p-6">
             <h2 className="text-2xl font-bold">Cookies & Tracking</h2>
             <p className="theme-muted mt-3">
-              AppRadar uses minimal cookies for basic functionality (e.g., preferences). We do not use tracking pixels,
+              Kanbit uses minimal cookies for basic functionality (e.g., preferences). We do not use tracking pixels,
               fingerprinting, or invasive analytics.
             </p>
           </section>

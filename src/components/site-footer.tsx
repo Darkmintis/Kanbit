@@ -6,7 +6,7 @@ export function SiteFooter() {
       <div className="container-shell py-14">
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
           <div className="pr-8 lg:col-span-2">
-            <h3 className="footer-title text-base font-bold tracking-tight">AppRadar</h3>
+            <h3 className="footer-title text-base font-bold tracking-tight">Kanbit</h3>
             <p className="theme-muted mt-4 max-w-sm text-sm font-medium leading-relaxed">
               Gamified Google Play scouting from public store signals. Lock an app, unlock tiers,
               power stats, and badges - no account, no AI.
@@ -48,7 +48,7 @@ export function SiteFooter() {
 
         <div className="theme-divider mt-12 flex w-full flex-col gap-3 border-t pt-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="theme-muted text-sm font-medium">
-            &copy; {new Date().getFullYear()} AppRadar. Estimates from public Play signals only.
+            &copy; {new Date().getFullYear()} Kanbit. Estimates from public Play signals only.
           </p>
           <a
             href="https://darkmintis.dev"

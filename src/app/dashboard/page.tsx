@@ -222,7 +222,7 @@ function DashboardContent() {
       </div>
 
       <p className="theme-muted mx-auto mt-10 max-w-2xl text-center text-xs leading-relaxed">
-        Estimates only. AppRadar scrapes public Google Play pages and turns them into a game-style
+        Estimates only. Kanbit scrapes public Google Play pages and turns them into a game-style
         profile. Not official Play Console analytics.
       </p>
     </div>

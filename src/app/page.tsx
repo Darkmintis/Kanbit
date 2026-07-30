@@ -52,8 +52,8 @@ const quickApps = [
 ];
 
 const DEFAULT_APP_LOGO = "/icons/app-default.svg";
-const QUICK_APP_ICON_CACHE = "appradar-quick-app-icons";
-const QUICK_APP_ICON_CACHE_MONTH = "appradar-quick-app-icons-month";
+const QUICK_APP_ICON_CACHE = "kanbit-quick-app-icons";
+const QUICK_APP_ICON_CACHE_MONTH = "kanbit-quick-app-icons-month";
 
 type QuickAppIconMap = Record<string, string>;
 
@@ -193,7 +193,7 @@ export default function Home() {
           </p>
 
           <h1 className="font-display text-5xl font-bold leading-[0.95] tracking-tight sm:text-7xl">
-            AppRadar
+            Kanbit
           </h1>
 
           <p className="theme-muted mx-auto mt-5 max-w-xl text-lg leading-relaxed sm:text-xl">
