@@ -40,7 +40,12 @@ jobs:
           mkdir -p main-repo/dist/kanbit
 
           # Copy Next.js static export output (out/ → dist/kanbit/)
-          cp -r out/* main-repo/dist/kanbit/
+          # out/ only exists when next.config.ts has output: "export"
+          if [ -d out ]; then
+            cp -r out/* main-repo/dist/kanbit/
+          else
+            echo "⚠️ No out/ directory found - skipping static export copy"
+          fi
 
           # Copy additional assets
           [ -f LICENSE ] && cp LICENSE main-repo/dist/kanbit/ || true
