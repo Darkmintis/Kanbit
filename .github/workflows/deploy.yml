@@ -1,0 +1,88 @@
+name: Deploy Kanbit to darkmintis-dev
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Kanbit repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Kanbit
+        run: npm run build
+
+      - name: Checkout darkmintis-dev
+        uses: actions/checkout@v4
+        with:
+          repository: Darkmintis/darkmintis-dev
+          token: ${{ secrets.DEPLOY_PAT }}
+          path: main-repo
+
+      - name: Copy production files to main repo
+        run: |
+          # Remove old deployment
+          rm -rf main-repo/dist/kanbit
+          mkdir -p main-repo/dist/kanbit
+
+          # Copy Next.js static export output (out/ → dist/kanbit/)
+          cp -r out/* main-repo/dist/kanbit/
+
+          # Copy additional assets
+          [ -f LICENSE ] && cp LICENSE main-repo/dist/kanbit/ || true
+          [ -f README.md ] && cp README.md main-repo/dist/kanbit/ || true
+
+          echo "✅ Production files copied successfully"
+          echo "📦 Deployed files:"
+          ls -la main-repo/dist/kanbit/
+
+      - name: Commit and push to darkmintis-dev
+        run: |
+          cd main-repo
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+
+          # Add changes
+          git add dist/kanbit
+
+          # Commit only if there are changes
+          if git diff --staged --quiet; then
+            echo "ℹ️ No changes to deploy"
+          else
+            git commit -m "🔄 Update Kanbit from commit ${GITHUB_SHA:0:7}"
+            git push
+            echo "✅ Changes pushed successfully"
+          fi
+
+      - name: Deployment summary
+        run: |
+          echo "## 🎉 Deployment Complete!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Tool**: Kanbit" >> $GITHUB_STEP_SUMMARY
+          echo "- **Live URL**: https://darkmintis.dev/kanbit" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit**: \`${GITHUB_SHA:0:7}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Triggered by**: ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Time**: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📦 Deployed Files" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Next.js static export output (out/)" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ LICENSE" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ README.md" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### ⚠️ Note" >> $GITHUB_STEP_SUMMARY
+          echo "Kanbit has server-side API routes (/api/apps, /api/search) using google-play-scraper." >> $GITHUB_STEP_SUMMARY
+          echo "Static export does not include API routes. Keep the API layer on Vercel or move to serverless functions." >> $GITHUB_STEP_SUMMARY
