@@ -26,6 +26,16 @@ jobs:
       - name: Build Kanbit
         run: npm run build
 
+      - name: Bundle Netlify Functions
+        run: |
+          npx --yes esbuild netlify/functions/apps.mjs \
+            --bundle --platform=node --format=cjs --target=node20 --alias:@=./src \
+            --outfile=/tmp/kanbit-apps.cjs
+          npx --yes esbuild netlify/functions/search.mjs \
+            --bundle --platform=node --format=cjs --target=node20 --alias:@=./src \
+            --outfile=/tmp/kanbit-search.cjs
+          echo "✅ Functions bundled"
+
       - name: Checkout darkmintis-dev
         uses: actions/checkout@v4
         with:
@@ -40,12 +50,15 @@ jobs:
           mkdir -p main-repo/dist/kanbit
 
           # Copy Next.js static export output (out/ → dist/kanbit/)
-          # out/ only exists when next.config.ts has output: "export"
-          if [ -d out ]; then
-            cp -r out/* main-repo/dist/kanbit/
-          else
-            echo "⚠️ No out/ directory found - skipping static export copy"
-          fi
+          # Strip pre-rendered API stubs — Netlify Functions handle /kanbit/api/*,
+          # and static files would otherwise shadow the function rewrite.
+          rm -rf out/api
+          cp -r out/* main-repo/dist/kanbit/
+
+          # Copy Netlify Functions (self-contained bundles, no hub deps needed)
+          mkdir -p main-repo/netlify/functions
+          cp /tmp/kanbit-apps.cjs main-repo/netlify/functions/apps.cjs
+          cp /tmp/kanbit-search.cjs main-repo/netlify/functions/search.cjs
 
           # Copy additional assets
           [ -f LICENSE ] && cp LICENSE main-repo/dist/kanbit/ || true
@@ -54,6 +67,8 @@ jobs:
           echo "✅ Production files copied successfully"
           echo "📦 Deployed files:"
           ls -la main-repo/dist/kanbit/
+          echo "⚙️ Netlify functions:"
+          ls -la main-repo/netlify/functions/
 
       - name: Commit and push to darkmintis-dev
         run: |
@@ -62,7 +77,7 @@ jobs:
           git config user.email "actions@github.com"
 
           # Add changes
-          git add dist/kanbit
+          git add dist/kanbit netlify/functions
 
           # Commit only if there are changes
           if git diff --staged --quiet; then
@@ -85,9 +100,11 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### 📦 Deployed Files" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ Next.js static export output (out/)" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Netlify Functions (apps, search)" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ LICENSE" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ README.md" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### ⚠️ Note" >> $GITHUB_STEP_SUMMARY
-          echo "Kanbit has server-side API routes (/api/apps, /api/search) using google-play-scraper." >> $GITHUB_STEP_SUMMARY
-          echo "Static export does not include API routes. Keep the API layer on Vercel or move to serverless functions." >> $GITHUB_STEP_SUMMARY
+          echo "### ℹ️ API" >> $GITHUB_STEP_SUMMARY
+          echo "Serverless API served from Netlify Functions:" >> $GITHUB_STEP_SUMMARY
+          echo "  - \`/kanbit/api/apps\` → \`/.netlify/functions/apps\`" >> $GITHUB_STEP_SUMMARY
+          echo "  - \`/kanbit/api/search\` → \`/.netlify/functions/search\`" >> $GITHUB_STEP_SUMMARY
