@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
+import { API_BASE } from "@/lib/api";
 import {
   Crosshair,
   Search,
@@ -75,6 +76,7 @@ function AppLogo({ src, alt, size = 48, className = "" }: Readonly<AppLogoProps>
       width={size}
       height={size}
       unoptimized
+      loading="eager"
       onError={() => setHasError(true)}
       className={className}
     />
@@ -88,20 +90,7 @@ export default function Home() {
   const [isSearching, setIsSearching] = useState(false);
   const [results, setResults] = useState<SearchResult[]>([]);
   const [showResults, setShowResults] = useState(false);
-  const [quickAppIcons, setQuickAppIcons] = useState<QuickAppIconMap>(() => {
-    if (typeof window === "undefined") return {};
-    const currentMonth = new Date().toISOString().slice(0, 7);
-    const cachedMonth = globalThis.localStorage.getItem(QUICK_APP_ICON_CACHE_MONTH);
-    const cachedIcons = globalThis.localStorage.getItem(QUICK_APP_ICON_CACHE);
-    if (cachedMonth === currentMonth && cachedIcons) {
-      try {
-        return JSON.parse(cachedIcons) as QuickAppIconMap;
-      } catch {
-        globalThis.localStorage.removeItem(QUICK_APP_ICON_CACHE);
-      }
-    }
-    return {};
-  });
+  const [quickAppIcons, setQuickAppIcons] = useState<QuickAppIconMap>({});
   const searchRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -120,7 +109,7 @@ export default function Home() {
     const timer = setTimeout(async () => {
       setIsSearching(true);
       try {
-        const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+        const res = await fetch(`${API_BASE}/search?q=${encodeURIComponent(query)}`);
         if (res.ok) {
           const data = await res.json();
           setResults(data.results || []);
@@ -138,13 +127,22 @@ export default function Home() {
   useEffect(() => {
     const currentMonth = new Date().toISOString().slice(0, 7);
     const cachedMonth = globalThis.localStorage.getItem(QUICK_APP_ICON_CACHE_MONTH);
-    if (cachedMonth === currentMonth) return;
+    const cachedIcons = globalThis.localStorage.getItem(QUICK_APP_ICON_CACHE);
+    if (cachedMonth === currentMonth && cachedIcons) {
+      try {
+        const parsed = JSON.parse(cachedIcons) as QuickAppIconMap;
+        setQuickAppIcons(parsed);
+        return;
+      } catch {
+        globalThis.localStorage.removeItem(QUICK_APP_ICON_CACHE);
+      }
+    }
 
     const fetchIcons = async () => {
       const entries = await Promise.all(
         quickApps.map(async (app) => {
           try {
-            const res = await fetch(`/api/apps?appId=${encodeURIComponent(app.packageName)}`);
+            const res = await fetch(`${API_BASE}/apps?appId=${encodeURIComponent(app.packageName)}`);
             if (!res.ok) return [app.packageName, DEFAULT_APP_LOGO] as const;
             const data = await res.json();
             return [app.packageName, data.icon || DEFAULT_APP_LOGO] as const;

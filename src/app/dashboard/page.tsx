@@ -11,6 +11,7 @@ import { RatingDistribution } from "@/components/rating-distribution";
 import { LoadingSpinner } from "@/components/loading";
 import { ErrorAlert } from "@/components/error-states";
 import { formatInstalls } from "@/lib/gamification";
+import { API_BASE } from "@/lib/api";
 import type { DashboardData } from "@/lib/appstore-api";
 
 function MetricTile({
@@ -59,7 +60,7 @@ function DashboardContent() {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch(`/api/apps?appId=${encodeURIComponent(appId)}`);
+        const response = await fetch(`${API_BASE}/apps?appId=${encodeURIComponent(appId)}`);
 
         if (!response.ok) {
           const errorData = await response.json();
