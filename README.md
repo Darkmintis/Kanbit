@@ -8,7 +8,7 @@
 
 No accounts. No AI. No paywall. Hosting (and optional ads) is the only cost.
 
-**Live demo:** [appradar-stats.vercel.app](https://appradar-stats.vercel.app/) · Built by [Darkmintis](https://darkmintis.dev)
+**Live demo:** [darkmintis.dev/kanbit](https://darkmintis.dev/kanbit) · Built by [Darkmintis](https://darkmintis.dev)
 
 > Not affiliated with Google. Not the commercial ASO product “App Radar.” Estimates only — not official Play Console data.
 
@@ -34,8 +34,8 @@ No accounts. No AI. No paywall. Hosting (and optional ads) is the only cost.
 ## Quick start
 
 ```bash
-git clone https://github.com/Darkmintis/AppRadar.git
-cd AppRadar
+git clone https://github.com/Darkmintis/Kanbit.git
+cd Kanbit
 npm install
 npm run dev
 ```
@@ -54,24 +54,25 @@ No environment variables are required for the core app.
 
 ```
 src/
-├── app/                 # Routes, layout, API
-│   ├── api/apps/        # GET /api/apps?appId=
-│   ├── api/search/      # GET /api/search?q=
+├── app/                 # Routes, layout
 │   ├── dashboard/       # Gamified app profile
 │   └── ...
 ├── components/          # UI (hero, power stats, badges, shell)
-└── lib/
-    ├── appstore-api.ts  # Scrape + dashboard payload
-    └── gamification.ts  # Tiers, XP, achievements, scout notes
+├── lib/
+│   ├── appstore-api.ts  # Scrape + dashboard payload
+│   └── gamification.ts  # Tiers, XP, achievements, scout notes
+└── (netlify/functions)  # Deployed serverless API (apps, search)
 ```
 
 ## API
 
-### `GET /api/search?q=`
+Hosted as Netlify Functions (`/kanbit/api/*` → `/.netlify/functions/*`).
+
+### `GET /kanbit/api/search?q=`
 
 Returns `{ results: AppSearchResult[] }` from a public Play Store search scrape.
 
-### `GET /api/apps?appId=`
+### `GET /kanbit/api/apps?appId=`
 
 Returns the full dashboard payload, including `game` (tier, level, powerStats, achievements, scoutingNotes).
 
