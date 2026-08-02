@@ -38,6 +38,10 @@ export function AppProfileHero({
   game,
 }: Readonly<AppProfileHeroProps>) {
   const [displayScore, setDisplayScore] = useState(0);
+  const [logoError, setLogoError] = useState(false);
+  const logo = logoError
+    ? `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/icons/app-default.svg`
+    : icon;
   const tier = TIER_META[game.tier];
   const circumference = 2 * Math.PI * 44;
   const offset = circumference - (game.playScore / 100) * circumference;
@@ -69,11 +73,12 @@ export function AppProfileHero({
             style={{ borderColor: tier.color }}
           >
             <Image
-              src={icon}
+              src={logo}
               alt={appName}
               width={120}
               height={120}
               unoptimized
+              onError={() => setLogoError(true)}
               className="h-[7.5rem] w-[7.5rem] rounded-[1.15rem] bg-[var(--color-surface)]"
             />
           </div>

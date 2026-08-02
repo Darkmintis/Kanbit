@@ -52,7 +52,7 @@ const quickApps = [
   { name: "Instagram", packageName: "com.instagram.android" },
 ];
 
-const DEFAULT_APP_LOGO = "/icons/app-default.svg";
+const DEFAULT_APP_LOGO = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/icons/app-default.svg`;
 const QUICK_APP_ICON_CACHE = "kanbit-quick-app-icons";
 const QUICK_APP_ICON_CACHE_MONTH = "kanbit-quick-app-icons-month";
 
