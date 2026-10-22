@@ -373,21 +373,6 @@ a[aria-disabled="true"] {
   opacity: 0.7;
 }
 
-.tier-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.35rem 0.75rem;
-  border-radius: 0.4rem;
-  font-family: var(--font-display);
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  border: 1px solid currentColor;
-  background: color-mix(in srgb, currentColor 12%, transparent);
-}
-
 .xp-track {
   height: 0.65rem;
   border-radius: 999px;

@@ -71,7 +71,6 @@ export function AppProfileHero({
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`Open ${appName} on Google Play`}
-          title="Open on Google Play"
           className="relative mx-auto block float-soft shrink-0 rounded-3xl lg:mx-0"
         >
           <div
@@ -92,12 +91,6 @@ export function AppProfileHero({
               className="h-[7.5rem] w-[7.5rem] rounded-[1.15rem] bg-[var(--color-surface)]"
             />
           </div>
-          <div
-            className="tier-chip absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap shadow-lg"
-            style={{ color: tier.color }}
-          >
-            {tier.label}
-          </div>
         </a>
 
         <div className="min-w-0 flex-1 text-center lg:text-left">
@@ -116,7 +109,6 @@ export function AppProfileHero({
               href={playStoreUrl}
               target="_blank"
               rel="noopener noreferrer"
-              title={`Open ${appName} on Google Play`}
               className="transition-colors hover:text-[var(--color-primary)] focus-visible:text-[var(--color-primary)] focus-visible:outline-none"
             >
               {appName}
