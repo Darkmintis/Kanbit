@@ -6,7 +6,6 @@ import Link from "next/link";
 import { Crosshair, MessageSquare, CalendarDays, Star, Users } from "lucide-react";
 import { AppProfileHero } from "@/components/app-profile-hero";
 import { PowerStats } from "@/components/power-stats";
-import { AchievementGrid } from "@/components/achievement-grid";
 import { RatingDistribution } from "@/components/rating-distribution";
 import { LoadingSpinner } from "@/components/loading";
 import { ErrorAlert } from "@/components/error-states";
@@ -44,6 +43,29 @@ function MetricTile({
       <p className="theme-muted mt-1.5 text-xs">{subtext}</p>
     </div>
   );
+}
+
+function SignalTile({
+  label,
+  value,
+  hint,
+}: Readonly<{ label: string; value: string; hint: string }>) {
+  return (
+    <div className="rounded-xl border border-[var(--color-border)] bg-[var(--surface-softer)] p-4">
+      <p className="font-display text-[0.6rem] font-bold uppercase tracking-[0.16em] text-[var(--color-text-muted)]">
+        {label}
+      </p>
+      <p className="font-hud mt-1 text-lg font-bold tracking-tight">{value}</p>
+      <p className="theme-muted mt-1 text-xs">{hint}</p>
+    </div>
+  );
+}
+
+function formatReleaseDate(value: string) {
+  if (!value || value === "Unknown") return "Unknown";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
 }
 
 function DashboardContent() {
@@ -132,6 +154,7 @@ function DashboardContent() {
     <div className="page-shell container-shell min-h-screen py-10 sm:py-14">
       <AppProfileHero
         appName={data.appName}
+        packageName={data.packageName}
         icon={data.icon}
         developer={data.developer}
         genre={data.genre}
@@ -178,6 +201,40 @@ function DashboardContent() {
         />
       </div>
 
+      <div className="hud-panel fade-in mt-6 p-6 sm:p-7">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="font-display text-[0.65rem] font-bold uppercase tracking-[0.18em] text-[var(--color-primary)]">
+              Store Signals
+            </p>
+            <h2 className="mt-1 text-2xl font-bold tracking-tight">Listing Stats</h2>
+          </div>
+          {data.editorsChoice ? (
+            <span className="font-display rounded-md border border-[var(--color-accent)]/40 bg-[var(--color-accent)]/10 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-[0.12em] text-[var(--color-accent)]">
+              Editor&rsquo;s Choice
+            </span>
+          ) : null}
+        </div>
+        <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <SignalTile label="Monetization" value={data.free ? "Free" : "Paid"} hint={data.priceText} />
+          <SignalTile
+            label="Ads"
+            value={data.adSupported ? "Supported" : "None"}
+            hint="Play listing ad signal"
+          />
+          <SignalTile
+            label="In-App Purchases"
+            value={data.offersIAP ? "Yes" : "No"}
+            hint="Offers in-app purchases"
+          />
+          <SignalTile
+            label="Released"
+            value={formatReleaseDate(data.released)}
+            hint="Public store release date"
+          />
+        </div>
+      </div>
+
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
         <div className="fade-in stagger-1">
           <PowerStats stats={game.powerStats} />
@@ -216,10 +273,6 @@ function DashboardContent() {
             ))}
           </ul>
         </div>
-      </div>
-
-      <div className="mt-6 fade-in stagger-4">
-        <AchievementGrid achievements={game.achievements} />
       </div>
 
       <p className="theme-muted mx-auto mt-10 max-w-2xl text-center text-xs leading-relaxed">

@@ -13,15 +13,6 @@ export type PowerStat = {
   blurb: string;
 };
 
-export type Achievement = {
-  id: string;
-  name: string;
-  description: string;
-  unlocked: boolean;
-  rarity: "common" | "rare" | "epic" | "legendary";
-  xpReward: number;
-};
-
 export type GameProfile = {
   level: number;
   xpProgress: number;
@@ -31,7 +22,6 @@ export type GameProfile = {
   className: string;
   playScore: number;
   powerStats: PowerStat[];
-  achievements: Achievement[];
   scoutingNotes: string[];
 };
 
@@ -52,14 +42,9 @@ type ScoreInput = {
   ratings: number;
   reviews: number;
   recentChanges: string;
-  free: boolean;
   maxInstalls: number;
   updated: number;
-  editorsChoice: boolean;
-  adSupported: boolean;
-  offersIAP: boolean;
   genre: string;
-  released: string;
 };
 
 function clamp(n: number, min = 0, max = 100) {
@@ -168,122 +153,6 @@ function powerStats(input: ScoreInput): PowerStat[] {
   ];
 }
 
-function achievements(input: ScoreInput, playScore: number): Achievement[] {
-  const daysSinceUpdate = input.updated
-    ? Math.floor((Date.now() - input.updated) / (1000 * 60 * 60 * 24))
-    : 999;
-  const daysSinceRelease = input.released
-    ? Math.floor((Date.now() - new Date(input.released).getTime()) / (1000 * 60 * 60 * 24))
-    : 0;
-
-  return [
-    {
-      id: "editors",
-      name: "Editor’s Pick",
-      description: "Marked as Editor’s Choice on Google Play.",
-      unlocked: input.editorsChoice,
-      rarity: "legendary",
-      xpReward: 500,
-    },
-    {
-      id: "five_star_aura",
-      name: "Five-Star Aura",
-      description: "Average rating of 4.5 or higher.",
-      unlocked: (input.score || 0) >= 4.5,
-      rarity: "epic",
-      xpReward: 250,
-    },
-    {
-      id: "crowd_favorite",
-      name: "Crowd Favorite",
-      description: "Over 100K ratings collected.",
-      unlocked: (input.ratings || 0) >= 100_000,
-      rarity: "rare",
-      xpReward: 150,
-    },
-    {
-      id: "viral_scale",
-      name: "Viral Scale",
-      description: "Crossed 10M+ estimated installs.",
-      unlocked: (input.maxInstalls || 0) >= 10_000_000,
-      rarity: "legendary",
-      xpReward: 500,
-    },
-    {
-      id: "million_club",
-      name: "Million Club",
-      description: "Hit 1M+ estimated installs.",
-      unlocked: (input.maxInstalls || 0) >= 1_000_000,
-      rarity: "epic",
-      xpReward: 250,
-    },
-    {
-      id: "active_forge",
-      name: "Active Forge",
-      description: "Updated within the last 30 days.",
-      unlocked: daysSinceUpdate <= 30,
-      rarity: "rare",
-      xpReward: 120,
-    },
-    {
-      id: "changelog",
-      name: "Patch Notes Live",
-      description: "Public changelog available on the listing.",
-      unlocked: Boolean(input.recentChanges?.trim()),
-      rarity: "common",
-      xpReward: 50,
-    },
-    {
-      id: "free_wave",
-      name: "Open Gate",
-      description: "Free to download - maximum reach stance.",
-      unlocked: input.free,
-      rarity: "common",
-      xpReward: 40,
-    },
-    {
-      id: "premium_gate",
-      name: "Premium Gate",
-      description: "Paid download model on Play Store.",
-      unlocked: !input.free,
-      rarity: "rare",
-      xpReward: 100,
-    },
-    {
-      id: "coin_shop",
-      name: "Coin Shop",
-      description: "Offers in-app purchases.",
-      unlocked: input.offersIAP,
-      rarity: "common",
-      xpReward: 45,
-    },
-    {
-      id: "ad_arena",
-      name: "Ad Arena",
-      description: "Listing shows ad support.",
-      unlocked: input.adSupported,
-      rarity: "common",
-      xpReward: 40,
-    },
-    {
-      id: "veteran",
-      name: "Veteran Build",
-      description: "On the store for 3+ years.",
-      unlocked: daysSinceRelease >= 365 * 3,
-      rarity: "epic",
-      xpReward: 220,
-    },
-    {
-      id: "score_ace",
-      name: "Score Ace",
-      description: "Play Score of 80 or higher.",
-      unlocked: playScore >= 80,
-      rarity: "epic",
-      xpReward: 280,
-    },
-  ];
-}
-
 function scoutingNotes(input: ScoreInput, profile: Omit<GameProfile, "scoutingNotes">): string[] {
   const notes: string[] = [];
   const tier = TIER_META[profile.tier];
@@ -323,11 +192,6 @@ function scoutingNotes(input: ScoreInput, profile: Omit<GameProfile, "scoutingNo
     notes.push("Stale forge detected - long gap since the last public update.");
   }
 
-  const unlocked = profile.achievements.filter((a) => a.unlocked).length;
-  notes.push(
-    `${unlocked}/${profile.achievements.length} badges unlocked from public Play signals.`,
-  );
-
   return notes;
 }
 
@@ -337,7 +201,6 @@ export function buildGameProfile(input: ScoreInput): GameProfile {
   const { level, xpProgress } = levelFromSignals(playScore, input.maxInstalls || 0);
   const className = classFromGenre(input.genre);
   const power = powerStats(input);
-  const badges = achievements(input, playScore);
 
   const base = {
     level,
@@ -348,7 +211,6 @@ export function buildGameProfile(input: ScoreInput): GameProfile {
     className,
     playScore,
     powerStats: power,
-    achievements: badges,
   };
 
   return {

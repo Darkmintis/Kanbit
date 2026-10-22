@@ -27,7 +27,7 @@ npm run build
 
 Good first areas:
 
-- UI / badge polish
+- UI / dashboard polish
 - Search UX and error states
 - Caching or rate limiting for scrape endpoints
 - Docs and accessibility

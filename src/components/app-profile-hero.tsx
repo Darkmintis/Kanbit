@@ -6,6 +6,7 @@ import { TIER_META, formatInstalls, type GameProfile } from "@/lib/gamification"
 
 type AppProfileHeroProps = {
   appName: string;
+  packageName: string;
   icon: string;
   developer: string;
   genre: string;
@@ -23,6 +24,7 @@ type AppProfileHeroProps = {
 
 export function AppProfileHero({
   appName,
+  packageName,
   icon,
   developer,
   genre,
@@ -45,6 +47,7 @@ export function AppProfileHero({
   const tier = TIER_META[game.tier];
   const circumference = 2 * Math.PI * 44;
   const offset = circumference - (game.playScore / 100) * circumference;
+  const playStoreUrl = `https://play.google.com/store/apps/details?id=${encodeURIComponent(packageName)}`;
 
   useEffect(() => {
     let frame = 0;
@@ -63,7 +66,14 @@ export function AppProfileHero({
   return (
     <section className="hud-panel fade-in overflow-visible p-6 sm:p-8">
       <div className="flex flex-col gap-8 lg:flex-row lg:items-center">
-        <div className="relative mx-auto float-soft shrink-0 lg:mx-0">
+        <a
+          href={playStoreUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Open ${appName} on Google Play`}
+          title="Open on Google Play"
+          className="relative mx-auto block float-soft shrink-0 rounded-3xl lg:mx-0"
+        >
           <div
             className="absolute -inset-3 rounded-[1.75rem] opacity-70 blur-xl"
             style={{ background: tier.glow }}
@@ -88,7 +98,7 @@ export function AppProfileHero({
           >
             {tier.label}
           </div>
-        </div>
+        </a>
 
         <div className="min-w-0 flex-1 text-center lg:text-left">
           <div className="mb-3 flex flex-wrap items-center justify-center gap-2 lg:justify-start">
@@ -101,7 +111,17 @@ export function AppProfileHero({
             </span>
           </div>
 
-          <h1 className="text-3xl font-bold tracking-tight sm:text-5xl">{appName}</h1>
+          <h1 className="text-3xl font-bold tracking-tight sm:text-5xl">
+            <a
+              href={playStoreUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              title={`Open ${appName} on Google Play`}
+              className="transition-colors hover:text-[var(--color-primary)] focus-visible:text-[var(--color-primary)] focus-visible:outline-none"
+            >
+              {appName}
+            </a>
+          </h1>
           <p className="theme-muted mt-2 text-base sm:text-lg">
             {developer} · {genre} · {priceText}
           </p>

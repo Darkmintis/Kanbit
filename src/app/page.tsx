@@ -12,7 +12,7 @@ import {
   Zap,
   ArrowRight,
   Loader2,
-  Gamepad2,
+  ScrollText,
 } from "lucide-react";
 
 const features = [
@@ -27,9 +27,9 @@ const features = [
     description: "Reach, Reputation, Voice, Freshness, Stickiness - XP bars you can read in a glance.",
   },
   {
-    icon: Gamepad2,
-    title: "Badge Vault",
-    description: "Unlock achievements like Million Club, Active Forge, and Editor’s Pick.",
+    icon: ScrollText,
+    title: "Scout Log",
+    description: "Rule-based mission briefings turn public listing signals into a quick read.",
   },
   {
     icon: Zap,
@@ -196,7 +196,7 @@ export default function Home() {
 
           <p className="theme-muted mx-auto mt-5 max-w-xl text-lg leading-relaxed sm:text-xl">
             Lock any Google Play app. We scrape public signals and turn them into a game profile -
-            tiers, XP, badges, and a scout briefing.
+            tiers, XP, listing stats, and a scout briefing.
           </p>
 
           <div ref={searchRef} className="relative z-50 mx-auto mt-10 max-w-2xl">

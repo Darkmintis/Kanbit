@@ -38,6 +38,7 @@ export type DashboardData = {
   released: string;
   updatedTimeAgo: string;
   contentRating: string;
+  free: boolean;
   editorsChoice: boolean;
   adSupported: boolean;
   offersIAP: boolean;
@@ -133,14 +134,9 @@ export async function getDashboardData(appId: string): Promise<DashboardData | n
       ratings: appInfo.ratings,
       reviews: appInfo.reviews,
       recentChanges: appInfo.recentChanges,
-      free: appInfo.free,
       maxInstalls: appInfo.maxInstalls,
       updated: appInfo.updated,
-      editorsChoice,
-      adSupported: !!appInfo.adSupported,
-      offersIAP: !!appInfo.offersIAP,
       genre: appInfo.genre || "Unknown",
-      released: appInfo.released || "",
     });
 
     const histogram: RatingHistogram = {
@@ -194,6 +190,7 @@ export async function getDashboardData(appId: string): Promise<DashboardData | n
       released: appInfo.released || "Unknown",
       updatedTimeAgo: getTimeAgo(appInfo.updated),
       contentRating: appInfo.contentRating || "Unknown",
+      free: !!appInfo.free,
       editorsChoice,
       adSupported: !!appInfo.adSupported,
       offersIAP: !!appInfo.offersIAP,

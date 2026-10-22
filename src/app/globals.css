@@ -189,8 +189,7 @@ summary,
 .theme-toggle,
 .theme-list-row,
 .footer-link,
-.site-header-nav-link,
-.achievement-tile {
+.site-header-nav-link {
   cursor: pointer;
 }
 
@@ -413,111 +412,6 @@ a[aria-disabled="true"] {
 
 .level-ring {
   animation: ringIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.achievement-tile {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  border-radius: 1rem;
-  border: 1px solid color-mix(in srgb, var(--badge-ring, var(--color-border)) 70%, var(--color-border));
-  background:
-    radial-gradient(120% 80% at 0% 0%, color-mix(in srgb, var(--badge-accent, transparent) 18%, transparent), transparent 55%),
-    var(--color-surface-elevated);
-  padding: 1rem;
-  cursor: pointer;
-  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease, opacity 0.22s ease, filter 0.22s ease;
-}
-
-.achievement-tile.unlocked:hover,
-.achievement-tile.unlocked:focus-visible {
-  transform: translateY(-4px) scale(1.01);
-  box-shadow: 0 12px 28px -12px var(--badge-glow, transparent);
-  border-color: var(--badge-ring, var(--color-border-hover));
-  outline: none;
-}
-
-.achievement-tile.is-selected {
-  border-color: var(--badge-ring, var(--color-primary));
-  box-shadow:
-    0 0 0 1px var(--badge-ring, var(--color-primary)),
-    0 14px 30px -14px var(--badge-glow, transparent);
-}
-
-.achievement-tile.locked {
-  opacity: 0.72;
-  filter: saturate(0.35) brightness(0.92);
-}
-
-.achievement-tile.locked:hover,
-.achievement-tile.locked:focus-visible {
-  opacity: 0.9;
-  filter: saturate(0.55) brightness(0.98);
-  transform: translateY(-2px);
-  outline: none;
-}
-
-.achievement-tile-shine {
-  pointer-events: none;
-  position: absolute;
-  inset: -40% auto auto -30%;
-  width: 55%;
-  height: 160%;
-  background: linear-gradient(
-    115deg,
-    transparent 30%,
-    rgba(255, 255, 255, 0.18) 48%,
-    transparent 62%
-  );
-  transform: rotate(18deg);
-  opacity: 0;
-}
-
-.achievement-tile.unlocked .achievement-tile-shine {
-  animation: badgeShine 3.8s ease-in-out infinite;
-}
-
-.achievement-medal {
-  display: grid;
-  place-items: center;
-  width: 3rem;
-  height: 3rem;
-  flex-shrink: 0;
-  border-radius: 999px;
-  position: relative;
-}
-
-.achievement-medal::after {
-  content: "";
-  position: absolute;
-  inset: 3px;
-  border-radius: inherit;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  pointer-events: none;
-}
-
-.achievement-inspect {
-  border-radius: 0.9rem;
-  border: 1px solid var(--color-border);
-  background:
-    radial-gradient(90% 120% at 0% 0%, var(--inspect-glow, transparent), transparent 60%),
-    var(--surface-softer);
-  padding: 1rem 1.1rem;
-}
-
-@keyframes badgeShine {
-  0%,
-  55% {
-    opacity: 0;
-    transform: translateX(-20%) rotate(18deg);
-  }
-  70% {
-    opacity: 0.7;
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(220%) rotate(18deg);
-  }
 }
 
 @keyframes fadeIn {
