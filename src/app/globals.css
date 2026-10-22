@@ -263,6 +263,15 @@ a[aria-disabled="true"] {
   color: var(--color-primary);
 }
 
+.app-title-link {
+  transition: color 0.2s ease;
+}
+
+.app-title-link:hover,
+.app-title-link:focus-visible {
+  color: var(--color-primary);
+}
+
 .accent-surface {
   background: linear-gradient(135deg, rgba(163, 230, 53, 0.08), rgba(245, 197, 24, 0.06));
 }

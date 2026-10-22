@@ -109,7 +109,7 @@ export function AppProfileHero({
               href={playStoreUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="transition-colors hover:text-[var(--color-primary)] focus-visible:text-[var(--color-primary)] focus-visible:outline-none"
+              className="app-title-link focus-visible:outline-none"
             >
               {appName}
             </a>
