@@ -250,31 +250,6 @@ function DashboardContent() {
         </div>
       </div>
 
-      <div className="mt-6 fade-in stagger-3">
-        <div className="hud-panel p-6 sm:p-7">
-          <p className="font-display text-[0.65rem] font-bold uppercase tracking-[0.18em] text-[var(--color-primary)]">
-            Scout Log
-          </p>
-          <h2 className="mt-1 text-2xl font-bold tracking-tight">Mission Briefing</h2>
-          <p className="theme-muted mt-1 text-sm">
-            Rule-based readouts from scraped public listing data - no AI.
-          </p>
-          <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-            {game.scoutingNotes.map((note, idx) => (
-              <li
-                key={`${note}-${idx}`}
-                className="rounded-xl border border-[var(--color-border)] bg-[var(--surface-softer)] p-4 text-sm leading-relaxed"
-              >
-                <span className="mr-2 font-display text-[0.65rem] font-bold uppercase tracking-[0.14em] text-[var(--color-primary)]">
-                  #{idx + 1}
-                </span>
-                {note}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-
       <p className="theme-muted mx-auto mt-10 max-w-2xl text-center text-xs leading-relaxed">
         Estimates only. Kanbit scrapes public Google Play pages and turns them into a game-style
         profile. Not official Play Console analytics.

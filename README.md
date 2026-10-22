@@ -4,7 +4,7 @@
 [![Next.js](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue)](https://www.typescriptlang.org/)
 
-**Kanbit** is a free, gamified Google Play Store scout. Search any app, scrape public listing signals, and unlock a game-style profile: rarity tiers, levels, power XP bars, listing stats, and a scout briefing.
+**Kanbit** is a free, gamified Google Play Store scout. Search any app, scrape public listing signals, and unlock a game-style profile: rarity tiers, levels, power XP bars, and listing stats.
 
 No accounts. No AI. No paywall. Hosting (and optional ads) is the only cost.
 
@@ -20,7 +20,6 @@ No accounts. No AI. No paywall. Hosting (and optional ads) is the only cost.
 - Listing stats: free/paid, ad support, in-app purchases, release date
 - Star breakdown + composite Play Score
 - Daily pace and review engagement readouts
-- Rule-based scout log (not AI)
 - Dark / light theme
 
 ## Stack

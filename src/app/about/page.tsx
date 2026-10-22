@@ -20,8 +20,8 @@ export default function AboutPage() {
           <h2 className="text-2xl font-bold">Mission</h2>
           <p className="theme-muted mt-4 leading-relaxed">
             Make public app intelligence fun and useful. No accounts. No AI bills. Just hosting plus
-            a scraper that turns installs, ratings, and listing signals into tiers, XP, listing
-            stats, and a scout briefing.
+            a scraper that turns installs, ratings, and listing signals into tiers, XP, and listing
+            stats.
           </p>
         </div>
 
@@ -31,7 +31,7 @@ export default function AboutPage() {
             {[
               { title: "Lock", desc: "Search any Play Store app name or package ID" },
               { title: "Scrape", desc: "We pull public listing signals from Google Play" },
-              { title: "Level Up", desc: "Stats become tiers, power bars, listing signals, and a scout log" },
+              { title: "Level Up", desc: "Stats become tiers, power bars, and listing signals" },
             ].map((step, i) => (
               <div key={step.title} className="hud-panel p-6">
                 <div className="flex items-center gap-3">
@@ -68,7 +68,6 @@ export default function AboutPage() {
               "Power board: Reach, Reputation, Voice, Freshness, Stickiness",
               "Listing stats: free/paid, ads, in-app purchases, release date",
               "Star breakdown and Play Score",
-              "Scout briefing written from rules - not AI",
               "No sign-up, no AI cost - hosting only",
             ].map((feature) => (
               <li key={feature} className="flex items-center gap-3">

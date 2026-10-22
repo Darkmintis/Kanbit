@@ -12,7 +12,6 @@ import {
   Zap,
   ArrowRight,
   Loader2,
-  ScrollText,
 } from "lucide-react";
 
 const features = [
@@ -25,11 +24,6 @@ const features = [
     icon: Shield,
     title: "Power Board",
     description: "Reach, Reputation, Voice, Freshness, Stickiness - XP bars you can read in a glance.",
-  },
-  {
-    icon: ScrollText,
-    title: "Scout Log",
-    description: "Rule-based mission briefings turn public listing signals into a quick read.",
   },
   {
     icon: Zap,
@@ -196,7 +190,7 @@ export default function Home() {
 
           <p className="theme-muted mx-auto mt-5 max-w-xl text-lg leading-relaxed sm:text-xl">
             Lock any Google Play app. We scrape public signals and turn them into a game profile -
-            tiers, XP, listing stats, and a scout briefing.
+            tiers, XP, and listing stats.
           </p>
 
           <div ref={searchRef} className="relative z-50 mx-auto mt-10 max-w-2xl">
@@ -319,7 +313,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           {features.map(({ icon: Icon, title, description }, idx) => (
             <div
               key={title}

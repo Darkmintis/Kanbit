@@ -22,7 +22,6 @@ export type GameProfile = {
   className: string;
   playScore: number;
   powerStats: PowerStat[];
-  scoutingNotes: string[];
 };
 
 export const TIER_META: Record<
@@ -153,48 +152,6 @@ function powerStats(input: ScoreInput): PowerStat[] {
   ];
 }
 
-function scoutingNotes(input: ScoreInput, profile: Omit<GameProfile, "scoutingNotes">): string[] {
-  const notes: string[] = [];
-  const tier = TIER_META[profile.tier];
-
-  notes.push(
-    `Scouted as ${tier.label} Lv.${profile.level} - ${profile.title}.`,
-  );
-
-  if ((input.score || 0) >= 4.5) {
-    notes.push("Reputation is elite: users are handing out top marks.");
-  } else if ((input.score || 0) >= 4.0) {
-    notes.push("Solid reputation board - room to push into five-star territory.");
-  } else if ((input.score || 0) >= 3.5) {
-    notes.push("Mid-pack reputation. Quality or UX wins would move the needle.");
-  } else {
-    notes.push("Reputation is under pressure - ratings are dragging the power curve.");
-  }
-
-  if ((input.maxInstalls || 0) >= 10_000_000) {
-    notes.push("Reach is massive. This listing already plays in the big leagues.");
-  } else if ((input.maxInstalls || 0) >= 1_000_000) {
-    notes.push("Strong install base - past the hardest growth wall for most apps.");
-  } else if ((input.maxInstalls || 0) >= 100_000) {
-    notes.push("Healthy traction. Next boss fight: the million-install gate.");
-  } else {
-    notes.push("Still early on the reach ladder - discovery and retention are the quest.");
-  }
-
-  const daysSinceUpdate = input.updated
-    ? Math.floor((Date.now() - input.updated) / (1000 * 60 * 60 * 24))
-    : 999;
-  if (daysSinceUpdate <= 30) {
-    notes.push("Freshness buff is active - recent patches keep the listing warm.");
-  } else if (daysSinceUpdate <= 90) {
-    notes.push("Updates are cooling off. A patch drop would restore Freshness XP.");
-  } else {
-    notes.push("Stale forge detected - long gap since the last public update.");
-  }
-
-  return notes;
-}
-
 export function buildGameProfile(input: ScoreInput): GameProfile {
   const playScore = computePlayScore(input);
   const tier = tierFromSignals(playScore, input.maxInstalls || 0);
@@ -202,7 +159,7 @@ export function buildGameProfile(input: ScoreInput): GameProfile {
   const className = classFromGenre(input.genre);
   const power = powerStats(input);
 
-  const base = {
+  return {
     level,
     xpProgress,
     tier,
@@ -211,11 +168,6 @@ export function buildGameProfile(input: ScoreInput): GameProfile {
     className,
     playScore,
     powerStats: power,
-  };
-
-  return {
-    ...base,
-    scoutingNotes: scoutingNotes(input, base),
   };
 }
 
