@@ -329,6 +329,32 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      <section className="container-shell border-t border-[var(--color-border)] py-16">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl">
+            About Kanbit
+          </h2>
+          <p className="theme-muted mt-3 leading-7">
+            Kanbit is a free Google Play Store scout. Search any app by name or package ID and see
+            public listing signals - installs, rating, release date, update activity, ads, and
+            in-app purchases - presented as a readable game-style profile with tiers, XP, and Store
+            Signals.
+          </p>
+          <p className="theme-muted mt-3 leading-7">
+            It is built for Android developers, ASO researchers, and anyone comparing apps without
+            signing up. Kanbit uses public Play Store data only and does not require an account.
+            Explore more Android projects on{" "}
+            <a
+              className="text-[var(--color-primary)] underline underline-offset-2"
+              href="https://darkmintis.dev/android-apps/"
+            >
+              Darkmintis
+            </a>
+            .
+          </p>
+        </div>
+      </section>
     </div>
   );
 }

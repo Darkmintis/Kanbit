@@ -1,6 +1,7 @@
 export const metadata = {
   title: "Terms of Service | Kanbit",
   description: "Kanbit terms of service and user agreement.",
+  alternates: { canonical: "https://darkmintis.dev/kanbit/terms/" },
 };
 
 export default function TermsPage() {

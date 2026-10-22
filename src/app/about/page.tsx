@@ -4,6 +4,7 @@ export const metadata = {
   title: "About Kanbit | Gamified Play Store Scout",
   description:
     "How Kanbit scrapes public Google Play signals and turns them into game-style app profiles.",
+  alternates: { canonical: "https://darkmintis.dev/kanbit/about/" },
 };
 
 export default function AboutPage() {

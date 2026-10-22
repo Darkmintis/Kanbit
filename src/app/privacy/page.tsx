@@ -1,6 +1,7 @@
 export const metadata = {
   title: "Privacy Policy | Kanbit",
   description: "Kanbit privacy policy and data handling practices.",
+  alternates: { canonical: "https://darkmintis.dev/kanbit/privacy/" },
 };
 
 export default function PrivacyPage() {

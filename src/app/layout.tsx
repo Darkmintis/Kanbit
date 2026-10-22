@@ -15,14 +15,20 @@ const fontDisplay = Chakra_Petch({
   weight: ["500", "600", "700"],
 });
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 export const metadata: Metadata = {
+  metadataBase: new URL("https://darkmintis.dev"),
   title: "Kanbit | Gamified Play Store Scout",
   description:
     "Search any Google Play app and unlock a game-style profile - tiers, power stats, and listing signals from public store signals. No sign-up. No AI.",
+  alternates: {
+    canonical: "https://darkmintis.dev/kanbit/",
+  },
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: `${basePath}/favicon.ico`, sizes: "any" },
+      { url: `${basePath}/icon.svg`, type: "image/svg+xml" },
     ],
   },
 };
